@@ -1,0 +1,14 @@
+{
+    "id": "{72CC55F4-4A05-D3A4-AEFB-1B1E2C0EAF14}",
+    "name": "Alarmsirene",
+    "type": 3,
+    "vendor": "UB",
+    "aliases": [
+        "Alarmsirene"
+    ],
+    "url": "https://github.com/ubittner/Alarmsirene/tree/main/Alarmsirene",
+    "parentRequirements": [],
+    "childRequirements": [],
+    "implemented": [],
+    "prefix": "ASIR"
+}

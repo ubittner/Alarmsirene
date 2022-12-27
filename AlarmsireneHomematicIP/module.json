@@ -1,0 +1,14 @@
+{
+    "id": "{C2E1BF4E-FB45-9023-85F0-5C80BCE99D45}",
+    "name": "AlarmsireneHomematicIP",
+    "type": 3,
+    "vendor": "UB",
+    "aliases": [
+        "Alarmsirene Homematic IP"
+    ],
+    "url": "https://github.com/ubittner/Alarmsirene/tree/main/AlarmsireneHomematicIP",
+    "parentRequirements": [],
+    "childRequirements": [],
+    "implemented": [],
+    "prefix": "ASIRHMIP"
+}

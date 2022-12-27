@@ -1,0 +1,14 @@
+{
+    "id": "{90C71DCF-603A-A5C8-7955-CB3FFC4FF58C}",
+    "name": "AlarmsireneHomematic",
+    "type": 3,
+    "vendor": "UB",
+    "aliases": [
+        "Alarmsirene Homematic"
+    ],
+    "url": "https://github.com/ubittner/Alarmsirene/tree/main/AlarmsireneHomematic",
+    "parentRequirements": [],
+    "childRequirements": [],
+    "implemented": [],
+    "prefix": "ASIRHM"
+}
