@@ -121,6 +121,7 @@ trait ASIRHMIP_Signaling
                 case 1: //HmIP-ASIR
                 case 2: //HmIP-ASIR-2
                 case 3: //HmIP-ASIR-O
+                    IPS_Sleep($this->ReadPropertyInteger('SwitchingDelay'));
                     $commandControl = $this->ReadPropertyInteger('CommandControl');
                     if ($commandControl > 1 && @IPS_ObjectExists($commandControl)) {
                         $commands = [];
@@ -133,7 +134,6 @@ trait ASIRHMIP_Signaling
                         $this->SendDebug(__FUNCTION__, 'Ablaufsteuerung: ' . $scriptText, 0);
                         $result = @IPS_RunScriptText($scriptText);
                     } else {
-                        IPS_Sleep($this->ReadPropertyInteger('SwitchingDelay'));
                         $parameter1 = @HM_WriteValueInteger($id, 'ACOUSTIC_ALARM_SELECTION', $AcousticSignal);
                         $parameter2 = @HM_WriteValueInteger($id, 'OPTICAL_ALARM_SELECTION', $OpticalSignal);
                         $parameter3 = @HM_WriteValueInteger($id, 'DURATION_UNIT', $DurationUnit);

@@ -50,6 +50,7 @@ trait ASIRHM_Signaling
                 case 1: //HM-Sec-Sir-WM
                 case 2: //HM-Sec-SFA-SM
                 case 3: //HM-LC-Sw4-WM
+                    IPS_Sleep($this->ReadPropertyInteger('SwitchingDelayAcousticAlarm'));
                     $commandControl = $this->ReadPropertyInteger('CommandControl');
                     if ($commandControl > 1 && @IPS_ObjectExists($commandControl)) { //0 = main category, 1 = none
                         $commands = [];
@@ -59,7 +60,6 @@ trait ASIRHM_Signaling
                         $this->SendDebug(__FUNCTION__, 'Ablaufsteuerung: ' . $scriptText, 0);
                         $result = @IPS_RunScriptText($scriptText);
                     } else {
-                        IPS_Sleep($this->ReadPropertyInteger('SwitchingDelayAcousticAlarm'));
                         $parameter = @HM_WriteValueBoolean($id, 'STATE', $State);
                         if (!$parameter) {
                             $this->SendDebug(__FUNCTION__, 'Beim akustischen Alarm ist ein Fehler aufgetreten!', 0);
@@ -119,6 +119,7 @@ trait ASIRHM_Signaling
             switch ($this->ReadPropertyInteger('DeviceTypeOpticalAlarm')) {
                 case 1: //HM-Sec-SFA-SM
                 case 2: //HM-LC-Sw4-WM
+                    IPS_Sleep($this->ReadPropertyInteger('SwitchingDelayOpticalAlarm'));
                     $commandControl = $this->ReadPropertyInteger('CommandControl');
                     if ($commandControl > 1 && @IPS_ObjectExists($commandControl)) { //0 = main category, 1 = none
                         $commands = [];
@@ -128,7 +129,6 @@ trait ASIRHM_Signaling
                         $this->SendDebug(__FUNCTION__, 'Ablaufsteuerung: ' . $scriptText, 0);
                         $result = @IPS_RunScriptText($scriptText);
                     } else {
-                        IPS_Sleep($this->ReadPropertyInteger('SwitchingDelayOpticalAlarm'));
                         $parameter = @HM_WriteValueBoolean($id, 'STATE', $State);
                         if (!$parameter) {
                             $this->SendDebug(__FUNCTION__, 'Beim optischen Alarm ist ein Fehler aufgetreten!', 0);

@@ -45,6 +45,7 @@ trait ASIR_Signaling
         if ($id > 1 && @IPS_ObjectExists($id)) { //0 = main category, 1 = none
             $actualValue = $this->GetValue('AcousticAlarm');
             $this->SetValue('AcousticAlarm', $State);
+            IPS_Sleep($this->ReadPropertyInteger('SwitchingDelayAcousticAlarm'));
             $commandControl = $this->ReadPropertyInteger('CommandControl');
             if ($commandControl > 1 && @IPS_ObjectExists($commandControl)) { //0 = main category, 1 = none
                 $commands = [];
@@ -54,7 +55,6 @@ trait ASIR_Signaling
                 $this->SendDebug(__FUNCTION__, 'Ablaufsteuerung: ' . $scriptText, 0);
                 $result = @IPS_RunScriptText($scriptText);
             } else {
-                IPS_Sleep($this->ReadPropertyInteger('SwitchingDelayAcousticAlarm'));
                 @RequestAction($id, $State);
             }
             if (!$result) {
@@ -98,6 +98,7 @@ trait ASIR_Signaling
         if ($id > 1 && @IPS_ObjectExists($id)) { //0 = main category, 1 = none
             $actualValue = $this->GetValue('OpticalAlarm');
             $this->SetValue('OpticalAlarm', $State);
+            IPS_Sleep($this->ReadPropertyInteger('SwitchingDelayOpticalAlarm'));
             $commandControl = $this->ReadPropertyInteger('CommandControl');
             if ($commandControl > 1 && @IPS_ObjectExists($commandControl)) { //0 = main category, 1 = none
                 $commands = [];
@@ -107,7 +108,6 @@ trait ASIR_Signaling
                 $this->SendDebug(__FUNCTION__, 'Ablaufsteuerung: ' . $scriptText, 0);
                 $result = @IPS_RunScriptText($scriptText);
             } else {
-                IPS_Sleep($this->ReadPropertyInteger('SwitchingDelayOpticalAlarm'));
                 @RequestAction($id, $State);
             }
             if (!$result) {
