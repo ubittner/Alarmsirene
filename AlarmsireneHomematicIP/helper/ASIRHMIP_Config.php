@@ -82,7 +82,8 @@ trait ASIRHMIP_Config
 
         ########## Elements
 
-        //Info
+        ##### Element: Info
+
         $form['elements'][0] = [
             'type'    => 'ExpansionPanel',
             'caption' => 'Info',
@@ -124,53 +125,7 @@ trait ASIRHMIP_Config
             ]
         ];
 
-        $form['elements'][] = [
-            'type'    => 'ExpansionPanel',
-            'caption' => 'Visualisierung',
-            'items'   => [
-                [
-                    'type'    => 'Label',
-                    'caption' => 'WebFront',
-                    'bold'    => true,
-                    'italic'  => true
-                ],
-                [
-                    'type'    => 'Label',
-                    'caption' => 'Anzeigeoptionen',
-                    'italic'  => true
-                ],
-                [
-                    'type'    => 'CheckBox',
-                    'name'    => 'EnableActive',
-                    'caption' => 'Aktiv'
-                ],
-                [
-                    'type'    => 'CheckBox',
-                    'name'    => 'EnableAlarmSiren',
-                    'caption' => 'Alarmsirene'
-                ],
-                [
-                    'type'    => 'CheckBox',
-                    'name'    => 'EnableAcousticSignal',
-                    'caption' => 'Akustisches Signal'
-                ],
-                [
-                    'type'    => 'CheckBox',
-                    'name'    => 'EnableOpticalSignal',
-                    'caption' => 'Optisches Signal'
-                ],
-                [
-                    'type'    => 'CheckBox',
-                    'name'    => 'EnableDurationUnit',
-                    'caption' => 'Einheit Zeitdauer'
-                ],
-                [
-                    'type'    => 'CheckBox',
-                    'name'    => 'EnableDurationValue',
-                    'caption' => 'Wert Zeitdauer'
-                ]
-            ]
-        ];
+        ##### Element: Alarm siren
 
         //Alarm siren
         $deviceInstance = $this->ReadPropertyInteger('DeviceInstance');
@@ -299,7 +254,491 @@ trait ASIRHMIP_Config
             ]
         ];
 
-        //Trigger list
+        ##### Element: Pre alarm
+
+        $form['elements'][] = [
+            'type'    => 'ExpansionPanel',
+            'caption' => 'Voralarm',
+            'items'   => [
+                [
+                    'type'    => 'CheckBox',
+                    'name'    => 'UsePreAlarm',
+                    'caption' => 'Voralarm'
+                ],
+                [
+                    'type'    => 'NumberSpinner',
+                    'name'    => 'PreAlarmDuration',
+                    'caption' => 'Dauer',
+                    'suffix'  => 'Sekunden'
+                ],
+                [
+                    'type'    => 'Select',
+                    'name'    => 'PreAlarmAcousticSignal',
+                    'caption' => 'Akustisches Signal',
+                    'options' => [
+                        [
+                            'caption' => '0 - Kein akustisches Signal',
+                            'value'   => 0
+                        ],
+                        [
+                            'caption' => '1 - Frequenz steigend',
+                            'value'   => 1
+                        ],
+                        [
+                            'caption' => '2 - Frequenz fallend',
+                            'value'   => 2
+                        ],
+                        [
+                            'caption' => '3 - Frequenz steigend/fallend',
+                            'value'   => 3
+                        ],
+                        [
+                            'caption' => '4 - Frequenz tief/hoch',
+                            'value'   => 4
+                        ],
+                        [
+                            'caption' => '5 - Frequenz tief/mittel/hoch',
+                            'value'   => 5
+                        ],
+                        [
+                            'caption' => '6 - Frequenz hoch ein/aus',
+                            'value'   => 6
+                        ],
+                        [
+                            'caption' => '7 - Frequenz hoch ein, lang aus',
+                            'value'   => 7
+                        ],
+                        [
+                            'caption' => '8 - Frequenz tief ein/aus, hoch ein/aus',
+                            'value'   => 8
+                        ],
+                        [
+                            'caption' => '9 - Frequenz tief ein - lang aus, hoch ein - lang aus',
+                            'value'   => 9
+                        ],
+                        [
+                            'caption' => '10 - Batterie leer',
+                            'value'   => 10
+                        ],
+                        [
+                            'caption' => '11 - Unscharf',
+                            'value'   => 11
+                        ],
+                        [
+                            'caption' => '12 - Intern scharf',
+                            'value'   => 12
+                        ],
+                        [
+                            'caption' => '13 - Extern scharf',
+                            'value'   => 13
+                        ],
+                        [
+                            'caption' => '14 - Verzögert intern scharf',
+                            'value'   => 14
+                        ],
+                        [
+                            'caption' => '15 - Verzögert extern scharf',
+                            'value'   => 15
+                        ],
+                        [
+                            'caption' => '16 - Alarm Ereignis',
+                            'value'   => 16
+                        ],
+                        [
+                            'caption' => '17 - Fehler',
+                            'value'   => 17
+                        ]
+                    ]
+                ],
+                [
+                    'type'    => 'Select',
+                    'name'    => 'PreAlarmOpticalSignal',
+                    'caption' => 'Optisches Signal',
+                    'options' => [
+                        [
+                            'caption' => '0 - Kein optisches Signal',
+                            'value'   => 0
+                        ],
+                        [
+                            'caption' => '1 - Abwechselndes langsames Blinken',
+                            'value'   => 1
+                        ],
+                        [
+                            'caption' => '2 - Gleichzeitiges langsames Blinken',
+                            'value'   => 2
+                        ],
+                        [
+                            'caption' => '3 - Gleichzeitiges schnelles Blinken',
+                            'value'   => 3
+                        ],
+                        [
+                            'caption' => '4 - Gleichzeitiges kurzes Blinken',
+                            'value'   => 4
+                        ],
+                        [
+                            'caption' => '5 - Bestätigungssignal 0 - lang lang',
+                            'value'   => 5
+                        ],
+                        [
+                            'caption' => '6 - Bestätigungssignal 1 - lang kurz',
+                            'value'   => 6
+                        ],
+                        [
+                            'caption' => '7 - Bestätigungssignal 2 - lang kurz kurz',
+                            'value'   => 7
+                        ]
+                    ]
+                ]
+            ]
+        ];
+
+        ##### Element: Main alarm
+
+        $form['elements'][] = [
+            'type'    => 'ExpansionPanel',
+            'caption' => 'Hauptalarm',
+            'items'   => [
+                [
+                    'type'    => 'CheckBox',
+                    'name'    => 'UseMainAlarm',
+                    'caption' => 'Hauptalarm'
+                ],
+                [
+                    'type'    => 'NumberSpinner',
+                    'name'    => 'MainAlarmDuration',
+                    'caption' => 'Dauer',
+                    'suffix'  => 'Sekunden'
+                ],
+                [
+                    'type'    => 'NumberSpinner',
+                    'name'    => 'MaximumSignallingAmountAcousticAlarm',
+                    'caption' => 'Maximale Auslösungen',
+                    'minimum' => 0,
+                    'suffix'  => 'Anzahl'
+                ],
+                [
+                    'type'    => 'Select',
+                    'name'    => 'MainAlarmAcousticSignal',
+                    'caption' => 'Akustisches Signal',
+                    'options' => [
+                        [
+                            'caption' => '0 - Kein akustisches Signal',
+                            'value'   => 0
+                        ],
+                        [
+                            'caption' => '1 - Frequenz steigend',
+                            'value'   => 1
+                        ],
+                        [
+                            'caption' => '2 - Frequenz fallend',
+                            'value'   => 2
+                        ],
+                        [
+                            'caption' => '3 - Frequenz steigend/fallend',
+                            'value'   => 3
+                        ],
+                        [
+                            'caption' => '4 - Frequenz tief/hoch',
+                            'value'   => 4
+                        ],
+                        [
+                            'caption' => '5 - Frequenz tief/mittel/hoch',
+                            'value'   => 5
+                        ],
+                        [
+                            'caption' => '6 - Frequenz hoch ein/aus',
+                            'value'   => 6
+                        ],
+                        [
+                            'caption' => '7 - Frequenz hoch ein, lang aus',
+                            'value'   => 7
+                        ],
+                        [
+                            'caption' => '8 - Frequenz tief ein/aus, hoch ein/aus',
+                            'value'   => 8
+                        ],
+                        [
+                            'caption' => '9 - Frequenz tief ein - lang aus, hoch ein - lang aus',
+                            'value'   => 9
+                        ],
+                        [
+                            'caption' => '10 - Batterie leer',
+                            'value'   => 10
+                        ],
+                        [
+                            'caption' => '11 - Unscharf',
+                            'value'   => 11
+                        ],
+                        [
+                            'caption' => '12 - Intern scharf',
+                            'value'   => 12
+                        ],
+                        [
+                            'caption' => '13 - Extern scharf',
+                            'value'   => 13
+                        ],
+                        [
+                            'caption' => '14 - Verzögert intern scharf',
+                            'value'   => 14
+                        ],
+                        [
+                            'caption' => '15 - Verzögert extern scharf',
+                            'value'   => 15
+                        ],
+                        [
+                            'caption' => '16 - Alarm Ereignis',
+                            'value'   => 16
+                        ],
+                        [
+                            'caption' => '17 - Fehler',
+                            'value'   => 17
+                        ]
+                    ]
+                ],
+                [
+                    'type'    => 'Select',
+                    'name'    => 'MainAlarmOpticalSignal',
+                    'caption' => 'Optisches Signal',
+                    'options' => [
+                        [
+                            'caption' => '0 - Kein optisches Signal',
+                            'value'   => 0
+                        ],
+                        [
+                            'caption' => '1 - Abwechselndes langsames Blinken',
+                            'value'   => 1
+                        ],
+                        [
+                            'caption' => '2 - Gleichzeitiges langsames Blinken',
+                            'value'   => 2
+                        ],
+                        [
+                            'caption' => '3 - Gleichzeitiges schnelles Blinken',
+                            'value'   => 3
+                        ],
+                        [
+                            'caption' => '4 - Gleichzeitiges kurzes Blinken',
+                            'value'   => 4
+                        ],
+                        [
+                            'caption' => '5 - Bestätigungssignal 0 - lang lang',
+                            'value'   => 5
+                        ],
+                        [
+                            'caption' => '6 - Bestätigungssignal 1 - lang kurz',
+                            'value'   => 6
+                        ],
+                        [
+                            'caption' => '7 - Bestätigungssignal 2 - lang kurz kurz',
+                            'value'   => 7
+                        ]
+                    ]
+                ]
+            ]
+        ];
+
+        ##### Element: Post alarm
+
+        $form['elements'][] = [
+            'type'    => 'ExpansionPanel',
+            'caption' => 'Nachalarm',
+            'items'   => [
+                [
+                    'type'    => 'CheckBox',
+                    'name'    => 'UsePostAlarm',
+                    'caption' => 'Nachalarm'
+                ],
+                [
+                    'type'    => 'NumberSpinner',
+                    'name'    => 'PostAlarmDuration',
+                    'caption' => 'Dauer',
+                    'minimum' => 0,
+                    'maximum' => 1800,
+                    'suffix'  => 'Sekunden'
+                ],
+                [
+                    'type'    => 'Select',
+                    'name'    => 'PostAlarmOpticalSignal',
+                    'caption' => 'Optisches Signal',
+                    'options' => [
+                        [
+                            'caption' => '0 - Kein optisches Signal',
+                            'value'   => 0
+                        ],
+                        [
+                            'caption' => '1 - Abwechselndes langsames Blinken',
+                            'value'   => 1
+                        ],
+                        [
+                            'caption' => '2 - Gleichzeitiges langsames Blinken',
+                            'value'   => 2
+                        ],
+                        [
+                            'caption' => '3 - Gleichzeitiges schnelles Blinken',
+                            'value'   => 3
+                        ],
+                        [
+                            'caption' => '4 - Gleichzeitiges kurzes Blinken',
+                            'value'   => 4
+                        ],
+                        [
+                            'caption' => '5 - Bestätigungssignal 0 - lang lang',
+                            'value'   => 5
+                        ],
+                        [
+                            'caption' => '6 - Bestätigungssignal 1 - lang kurz',
+                            'value'   => 6
+                        ],
+                        [
+                            'caption' => '7 - Bestätigungssignal 2 - lang kurz kurz',
+                            'value'   => 7
+                        ]
+                    ]
+                ]
+            ]
+        ];
+
+        ##### Element: Panic alarm
+
+        $form['elements'][] = [
+            'type'    => 'ExpansionPanel',
+            'caption' => 'Panikalarm',
+            'items'   => [
+                [
+                    'type'    => 'CheckBox',
+                    'name'    => 'UsePanicAlarm',
+                    'caption' => 'Panikalarm'
+                ],
+                [
+                    'type'    => 'NumberSpinner',
+                    'name'    => 'PanicAlarmDuration',
+                    'caption' => 'Dauer',
+                    'suffix'  => 'Sekunden'
+                ],
+                [
+                    'type'    => 'Select',
+                    'name'    => 'PanicAlarmAcousticSignal',
+                    'caption' => 'Akustisches Signal',
+                    'options' => [
+                        [
+                            'caption' => '0 - Kein akustisches Signal',
+                            'value'   => 0
+                        ],
+                        [
+                            'caption' => '1 - Frequenz steigend',
+                            'value'   => 1
+                        ],
+                        [
+                            'caption' => '2 - Frequenz fallend',
+                            'value'   => 2
+                        ],
+                        [
+                            'caption' => '3 - Frequenz steigend/fallend',
+                            'value'   => 3
+                        ],
+                        [
+                            'caption' => '4 - Frequenz tief/hoch',
+                            'value'   => 4
+                        ],
+                        [
+                            'caption' => '5 - Frequenz tief/mittel/hoch',
+                            'value'   => 5
+                        ],
+                        [
+                            'caption' => '6 - Frequenz hoch ein/aus',
+                            'value'   => 6
+                        ],
+                        [
+                            'caption' => '7 - Frequenz hoch ein, lang aus',
+                            'value'   => 7
+                        ],
+                        [
+                            'caption' => '8 - Frequenz tief ein/aus, hoch ein/aus',
+                            'value'   => 8
+                        ],
+                        [
+                            'caption' => '9 - Frequenz tief ein - lang aus, hoch ein - lang aus',
+                            'value'   => 9
+                        ],
+                        [
+                            'caption' => '10 - Batterie leer',
+                            'value'   => 10
+                        ],
+                        [
+                            'caption' => '11 - Unscharf',
+                            'value'   => 11
+                        ],
+                        [
+                            'caption' => '12 - Intern scharf',
+                            'value'   => 12
+                        ],
+                        [
+                            'caption' => '13 - Extern scharf',
+                            'value'   => 13
+                        ],
+                        [
+                            'caption' => '14 - Verzögert intern scharf',
+                            'value'   => 14
+                        ],
+                        [
+                            'caption' => '15 - Verzögert extern scharf',
+                            'value'   => 15
+                        ],
+                        [
+                            'caption' => '16 - Alarm Ereignis',
+                            'value'   => 16
+                        ],
+                        [
+                            'caption' => '17 - Fehler',
+                            'value'   => 17
+                        ]
+                    ]
+                ],
+                [
+                    'type'    => 'Select',
+                    'name'    => 'PanicAlarmOpticalSignal',
+                    'caption' => 'Optisches Signal',
+                    'options' => [
+                        [
+                            'caption' => '0 - Kein optisches Signal',
+                            'value'   => 0
+                        ],
+                        [
+                            'caption' => '1 - Abwechselndes langsames Blinken',
+                            'value'   => 1
+                        ],
+                        [
+                            'caption' => '2 - Gleichzeitiges langsames Blinken',
+                            'value'   => 2
+                        ],
+                        [
+                            'caption' => '3 - Gleichzeitiges schnelles Blinken',
+                            'value'   => 3
+                        ],
+                        [
+                            'caption' => '4 - Gleichzeitiges kurzes Blinken',
+                            'value'   => 4
+                        ],
+                        [
+                            'caption' => '5 - Bestätigungssignal 0 - lang lang',
+                            'value'   => 5
+                        ],
+                        [
+                            'caption' => '6 - Bestätigungssignal 1 - lang kurz',
+                            'value'   => 6
+                        ],
+                        [
+                            'caption' => '7 - Bestätigungssignal 2 - lang kurz kurz',
+                            'value'   => 7
+                        ]
+                    ]
+                ]
+
+            ]
+        ];
+
+        ##### Element: Trigger list
+
         $triggerListValues = [];
         $variables = json_decode($this->ReadPropertyString('TriggerList'), true);
         foreach ($variables as $variable) {
@@ -358,6 +797,19 @@ trait ASIRHMIP_Config
                             'edit'    => [
                                 'type' => 'CheckBox'
                             ]
+                        ],
+                        [
+                            'name'    => 'ActualStatus',
+                            'caption' => 'Aktueller Status',
+                            'width'   => '200px',
+                            'add'     => ''
+                        ],
+                        [
+                            'caption' => 'ID',
+                            'name'    => 'ID',
+                            'onClick' => self::MODULE_PREFIX . '_ModifyTriggerListButton($id, "TriggerListConfigurationButton", $TriggerList["PrimaryCondition"]);',
+                            'width'   => '100px',
+                            'add'     => ''
                         ],
                         [
                             'caption' => 'Bezeichnung',
@@ -456,6 +908,61 @@ trait ASIRHMIP_Config
                         [
                             'caption' => 'Signalisierung:',
                             'name'    => 'LabelSignaling',
+                            'width'   => '200px',
+                            'add'     => '',
+                            'visible' => false,
+                            'edit'    => [
+                                'type'   => 'Label',
+                                'italic' => true,
+                                'bold'   => true
+                            ]
+                        ],
+                        [
+                            'caption' => 'Modus',
+                            'name'    => 'SignalingMode',
+                            'width'   => '200px',
+                            'add'     => 0,
+                            'edit'    => [
+                                'type'    => 'Select',
+                                'options' => [
+                                    [
+                                        'caption' => 'Keine Funktion',
+                                        'value'   => 0
+                                    ],
+                                    [
+                                        'caption' => 'Alarmsirene Aus',
+                                        'value'   => 1
+                                    ],
+                                    [
+                                        'caption' => 'Alarmsirene An (Alarmstufen)',
+                                        'value'   => 2
+                                    ],
+                                    [
+                                        'caption' => 'Voralarm',
+                                        'value'   => 3
+                                    ],
+                                    [
+                                        'caption' => 'Hauptalarm',
+                                        'value'   => 4
+                                    ],
+                                    [
+                                        'caption' => 'Nachalarm',
+                                        'value'   => 5
+                                    ],
+                                    [
+                                        'caption' => 'Panikalarm',
+                                        'value'   => 6
+                                    ],
+                                    [
+                                        'caption' => 'Benutzerdefiniert',
+                                        'value'   => 7
+                                    ]
+                                ]
+                            ]
+                        ],
+                        [
+                            'caption' => 'Benutzerdefiniert:',
+                            'name'    => 'LabelUserDefined',
                             'width'   => '200px',
                             'add'     => '',
                             'visible' => false,
@@ -641,7 +1148,8 @@ trait ASIRHMIP_Config
             ]
         ];
 
-        //Command control
+        ##### Element: Command control
+
         $id = $this->ReadPropertyInteger('CommandControl');
         $enableButton = false;
         if ($id > 1 && @IPS_ObjectExists($id)) { //0 = main category, 1 = none
@@ -683,6 +1191,57 @@ trait ASIRHMIP_Config
             ]
         ];
 
+        ##### Element: Alarm protocol
+
+        $id = $this->ReadPropertyInteger('AlarmProtocol');
+        $enableButton = false;
+        if ($id > 1 && @IPS_ObjectExists($id)) { //0 = main category, 1 = none
+            $enableButton = true;
+        }
+        $form['elements'][] = [
+            'type'    => 'ExpansionPanel',
+            'caption' => 'Alarmprotokoll',
+            'items'   => [
+                [
+                    'type'  => 'RowLayout',
+                    'items' => [
+                        [
+                            'type'     => 'SelectModule',
+                            'name'     => 'AlarmProtocol',
+                            'caption'  => 'Instanz',
+                            'moduleID' => self::ALARMPROTOCOL_MODULE_GUID,
+                            'width'    => '600px',
+                            'onChange' => self::MODULE_PREFIX . '_ModifyButton($id, "AlarmProtocolConfigurationButton", "ID " . $AlarmProtocol . " Instanzkonfiguration", $AlarmProtocol);'
+                        ],
+                        [
+                            'type'    => 'Button',
+                            'caption' => 'Neue Instanz erstellen',
+                            'onClick' => self::MODULE_PREFIX . '_CreateAlarmProtocolInstance($id);'
+                        ],
+                        [
+                            'type'    => 'Label',
+                            'caption' => ' '
+                        ],
+                        [
+                            'type'     => 'OpenObjectButton',
+                            'caption'  => 'ID ' . $id . ' Instanzkonfiguration',
+                            'name'     => 'AlarmProtocolConfigurationButton',
+                            'visible'  => $enableButton,
+                            'objectID' => $id
+                        ]
+                    ]
+                ],
+                [
+                    'type'    => 'ValidationTextBox',
+                    'name'    => 'Location',
+                    'caption' => 'Standortbezeichnung (z.B. Musterstraße 1)',
+                    'width'   => '600px'
+                ]
+            ]
+        ];
+
+        ##### Element: Automatic deactivation
+
         $form['elements'][] = [
             'type'    => 'ExpansionPanel',
             'caption' => 'Deaktivierung',
@@ -701,6 +1260,51 @@ trait ASIRHMIP_Config
                     'type'    => 'SelectTime',
                     'name'    => 'AutomaticDeactivationEndTime',
                     'caption' => 'Endzeit'
+                ]
+            ]
+        ];
+
+        ##### Element: Visualisation
+
+        $form['elements'][] = [
+            'type'    => 'ExpansionPanel',
+            'caption' => 'Visualisierung',
+            'items'   => [
+                [
+                    'type'    => 'Label',
+                    'caption' => 'WebFront',
+                    'bold'    => true,
+                    'italic'  => true
+                ],
+                [
+                    'type'    => 'Label',
+                    'caption' => 'Anzeigeoptionen',
+                    'italic'  => true
+                ],
+                [
+                    'type'    => 'CheckBox',
+                    'name'    => 'EnableActive',
+                    'caption' => 'Aktiv'
+                ],
+                [
+                    'type'    => 'CheckBox',
+                    'name'    => 'EnableAlarmSiren',
+                    'caption' => 'Alarmsirene'
+                ],
+                [
+                    'type'    => 'CheckBox',
+                    'name'    => 'EnableAlarmLevel',
+                    'caption' => 'Alarmstufe'
+                ],
+                [
+                    'type'    => 'CheckBox',
+                    'name'    => 'EnableSignalingAmount',
+                    'caption' => 'Auslösungen'
+                ],
+                [
+                    'type'    => 'CheckBox',
+                    'name'    => 'EnableResetSignalingAmount',
+                    'caption' => 'Rückstellung'
                 ]
             ]
         ];

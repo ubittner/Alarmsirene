@@ -67,7 +67,46 @@ trait ASIRHMIP_TriggerCondition
                                 $this->SendDebug(__FUNCTION__, 'Abbruch, die Bedingungen wurden nicht erfüllt!', 0);
                             } else {
                                 $this->SendDebug(__FUNCTION__, 'Die Bedingungen wurden erfüllt.', 0);
-                                $this->ExecuteSignaling($variable['AcousticSignal'], $variable['OpticalSignal'], $variable['DurationUnit'], $variable['DurationValue']);
+                                switch ($variable['SignalingMode']) {
+                                    case 1: //alarm siren off
+                                        $this->ToggleAlarmSiren(false);
+                                        break;
+
+                                    case 2: //alarm siren on (alarm level)
+                                        $this->ToggleAlarmSiren(true);
+                                        break;
+
+                                    case 3: //pre alarm
+                                        $this->SetAlarmLevel(1);
+                                        break;
+
+                                    case 4: //main alarm
+                                        $this->SetAlarmLevel(2);
+                                        break;
+
+                                    case 5: //post alarm
+                                        $this->SetAlarmLevel(3);
+                                        break;
+
+                                    case 6: //panic alarm
+                                        $this->SetAlarmLevel(4);
+                                        break;
+
+                                    case 7: //user defined
+                                        if ($this->CheckSignallingAmount()) {
+                                            $this->ExecuteSignaling($variable['AcousticSignal'], $variable['OpticalSignal'], $variable['DurationUnit'], $variable['DurationValue']);
+                                            if ($variable['AcousticSignal'] >= 1 && $variable['AcousticSignal'] <= 9) {
+                                                $this->SetValue('SignallingAmount', $this->GetValue('SignallingAmount') + 1);
+                                            }
+                                            //Debug and log text
+                                            $text = 'Die Alarmsirene wurde benutzerdefiniert geschaltet.';
+                                            $this->SendDebug(__FUNCTION__, $text, 0);
+                                            $logText = date('d.m.Y, H:i:s') . ', ' . $this->ReadPropertyString('Location') . ', Alarmsirene, ' . $text . ' (ID ' . $this->InstanceID . ')';
+                                            $this->UpdateAlarmProtocol($logText, 0);
+                                        }
+                                        break;
+
+                                }
                             }
                         }
                     }

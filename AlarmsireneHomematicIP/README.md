@@ -78,10 +78,10 @@ Nachfolgendes Beispiel löst einen akustischen und optischen Alarm für 180 Seku
 #### 6.1 Signalisierung auslösen
 
 ```
-boolean ASIRHMIP_ExecuteSignaling(integer INSTANCE_ID, integer ACOUSTIC_ALARM_SELECTION, integer OPTICAL_ALARM_SELECTION, integer DURATION_UNIT, integer DURATION_VALUE);
+ASIRHMIP_ExecuteSignaling(integer INSTANCE_ID, integer ACOUSTIC_ALARM_SELECTION, integer OPTICAL_ALARM_SELECTION, integer DURATION_UNIT, integer DURATION_VALUE);
 ```
 
-Konnte der Befehl erfolgreich ausgeführt werden, liefert er als Ergebnis **TRUE**, andernfalls **FALSE**.
+Der Befehl liefert keinen Rückgabewert.
 
 | Parameter                  | Wert            | Bezeichnung                            | Beschreibung                                      |
 |----------------------------|-----------------|----------------------------------------|---------------------------------------------------|
