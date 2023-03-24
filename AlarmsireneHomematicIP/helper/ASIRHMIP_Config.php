@@ -126,12 +126,23 @@ trait ASIRHMIP_Config
 
         $form['elements'][] = [
             'type'    => 'ExpansionPanel',
-            'caption' => 'Funktionen',
+            'caption' => 'Visualisierung',
             'items'   => [
+                [
+                    'type'    => 'Label',
+                    'caption' => 'WebFront',
+                    'bold'    => true,
+                    'italic'  => true
+                ],
+                [
+                    'type'    => 'Label',
+                    'caption' => 'Anzeigeoptionen',
+                    'italic'  => true
+                ],
                 [
                     'type'    => 'CheckBox',
                     'name'    => 'EnableActive',
-                    'caption' => 'Aktiv (Schalter im WebFront)'
+                    'caption' => 'Aktiv'
                 ],
                 [
                     'type'    => 'CheckBox',

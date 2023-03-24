@@ -25,25 +25,29 @@ Der Nutzer stimmt den o.a. Bedingungen, sowie den Lizenzbedingungen ausdrücklic
 
 ### 1. Modulbeschreibung
 
-Dieses Modul integriert eine [Homematic](https://www.eq-3.de/produkte/homematic.html) Alarmsirene HM-Sec-Sir-WM, HM-Sec-SFA-SM, HM-LC-Sw4-WM in [IP-Symcon](https://www.symcon.de).
+Dieses Modul integriert eine [Homematic](https://www.eq-3.de/produkte/homematic.html) Alarmsirene HM-Sec-Sir-WM, HM-Sec-SFA-SM, HM-LC-Sw4-WM, HM-LC-Sw2-FM in [IP-Symcon](https://www.symcon.de).
 
 ### 2. Voraussetzungen
 
 - IP-Symcon ab Version 6.1
 
-| Gerät         | Beschreibung                             | Funktion          | Kanal | Typ     | Parameter | Typ     | Verfügbar          | 
-|---------------|------------------------------------------|-------------------|-------|---------|-----------|---------|--------------------|
-| HM-Sec-Sir-WM | Homematic Innensirene                    | Akustischer Alarm | 3     | Instanz | STATE     | boolean | :white_check_mark: |
-| HM-Sec-Sir-WM |                                          | Optischer Alarm   | -     | -       | -         | -       | :x:                |
-| HM-Sec-Sir-WM |                                          | Quittungston      | 4     | Instanz | ARMSTATE  | integer | :white_check_mark: |
-|               |                                          |                   |       |         |           |         |                    |
-| HM-Sec-SFA-SM | Homematic Funk Sirenen-Blitz-Ansteuerung | Akustischer Alarm | 1     | Instanz | STATE     | boolean | :white_check_mark: |
-| HM-Sec-SFA-SM |                                          | Optischer Alarm   | 2     | Instanz | STATE     | boolean | :white_check_mark: |
-| HM-Sec-SFA-SM |                                          | Quittungston      | -     | -       | -         | -       | :x:                |
-|               |                                          |                   |       |         |           |         |                    |
-| HM-LC-Sw4-WM  | Homematic 4-fach Funk-Schaltaktor        | Akustischer Alarm | n     | Instanz | STATE     | boolean | :white_check_mark: |
-| HM-LC-Sw4-WM  |                                          | Optischer Alarm   | n     | Instanz | STATE     | boolean | :white_check_mark: |
-| HM-LC-Sw4-WM  |                                          | Quittungston      | -     | -       | -         | -       | :x:                |
+| Gerät         | Beschreibung                             | Funktion          | Kanal   | Typ     | Parameter | Typ     | Verfügbar          | 
+|---------------|------------------------------------------|-------------------|---------|---------|-----------|---------|--------------------|
+| HM-Sec-Sir-WM | Homematic Innensirene                    | Akustischer Alarm | 3       | Instanz | STATE     | boolean | :white_check_mark: |
+| HM-Sec-Sir-WM |                                          | Optischer Alarm   | -       | -       | -         | -       | :x:                |
+| HM-Sec-Sir-WM |                                          | Quittungston      | 4       | Instanz | ARMSTATE  | integer | :white_check_mark: |
+|               |                                          |                   |         |         |           |         |                    |
+| HM-Sec-SFA-SM | Homematic Funk Sirenen-Blitz-Ansteuerung | Akustischer Alarm | 1       | Instanz | STATE     | boolean | :white_check_mark: |
+| HM-Sec-SFA-SM |                                          | Optischer Alarm   | 2       | Instanz | STATE     | boolean | :white_check_mark: |
+| HM-Sec-SFA-SM |                                          | Quittungston      | -       | -       | -         | -       | :x:                |
+|               |                                          |                   |         |         |           |         |                    |
+| HM-LC-Sw4-WM  | Homematic 4-fach Funk-Schaltaktor        | Akustischer Alarm | n (1-4) | Instanz | STATE     | boolean | :white_check_mark: |
+| HM-LC-Sw4-WM  |                                          | Optischer Alarm   | n (1-4) | Instanz | STATE     | boolean | :white_check_mark: |
+| HM-LC-Sw4-WM  |                                          | Quittungston      | -       | -       | -         | -       | :x:                |
+|               |                                          |                   |         |         |           |         |                    |
+| HM-LC-Sw2-FM  | Homematic 2-fach Funk-Schaltaktor        | Akustischer Alarm | n (1-2) | Instanz | STATE     | boolean | :white_check_mark: |
+| HM-LC-Sw2-FM  |                                          | Optischer Alarm   | n (1-2) | Instanz | STATE     | boolean | :white_check_mark: |
+| HM-LC-Sw2-FM  |                                          | Quittungston      | -       | -       | -         | -       | :x:                |
 
 Sollten mehrere Homematic Geräte geschaltet werden, so sollte zusätzlich das Modul Ablaufsteuerung genutzt werden.
 
@@ -96,7 +100,7 @@ Nachfolgendes Beispiel löst einen akustischen Alarm aus.
 boolean ASIRHM_ToggleAcousticAlarm(integer INSTANCE_ID, boolean STATE);
 ```
 
-Konnte der Befehl erfolgreich ausgeführt werden, liefert er als Ergebnis **TRUE**, andernfalls **FALSE**.
+Der Befehl liefert keinen Rückgabewert.  
 
 | Parameter     | Wert  | Bezeichnung    |
 |---------------|-------|----------------|
@@ -115,7 +119,7 @@ Beispiel:
 boolean ASIRHM_ToggleOpticalAlarm(integer INSTANCE_ID, boolean STATE);
 ```
 
-Konnte der Befehl erfolgreich ausgeführt werden, liefert er als Ergebnis **TRUE**, andernfalls **FALSE**.
+Der Befehl liefert keinen Rückgabewert.  
 
 | Parameter     | Wert  | Beschreibung   |
 |---------------|-------|----------------|
@@ -134,7 +138,7 @@ Beispiel:
 boolean ASIRHM_ExecuteToneAcknowledgement(integer INSTANCE_ID, integer VALUE);
 ```
 
-Konnte der Befehl erfolgreich ausgeführt werden, liefert er als Ergebnis **TRUE**, andernfalls **FALSE**.
+Der Befehl liefert keinen Rückgabewert.  
 
 | Parameter     | Wert | Beschreibung                         |
 |---------------|------|--------------------------------------|
