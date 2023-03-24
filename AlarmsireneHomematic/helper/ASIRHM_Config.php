@@ -8,8 +8,8 @@
  * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
  */
 
+/** @noinspection PhpUndefinedFunctionInspection */
 /** @noinspection DuplicatedCode */
-/** @noinspection PhpUnused */
 
 declare(strict_types=1);
 
@@ -82,7 +82,8 @@ trait ASIRHM_Config
 
         ########## Elements
 
-        //Info
+        ##### Element: Info
+
         $form['elements'][0] = [
             'type'    => 'ExpansionPanel',
             'caption' => 'Info',
@@ -124,34 +125,7 @@ trait ASIRHM_Config
             ]
         ];
 
-        $form['elements'][] = [
-            'type'    => 'ExpansionPanel',
-            'caption' => 'Funktionen',
-            'items'   => [
-                [
-                    'type'    => 'CheckBox',
-                    'name'    => 'EnableActive',
-                    'caption' => 'Aktiv (Schalter im WebFront)'
-                ],
-                [
-                    'type'    => 'CheckBox',
-                    'name'    => 'EnableAcousticAlarm',
-                    'caption' => 'Akustischer Alarm'
-                ],
-                [
-                    'type'    => 'CheckBox',
-                    'name'    => 'EnableOpticalAlarm',
-                    'caption' => 'Optischer Alarm'
-                ],
-                [
-                    'type'    => 'CheckBox',
-                    'name'    => 'EnableToneAcknowledgement',
-                    'caption' => 'Quittungston'
-                ]
-            ]
-        ];
-
-        ##### Acoustic alarm
+        ##### Element: Acoustic alarm
 
         //Acoustic alarm instance
         $deviceInstanceAcousticAlarm = $this->ReadPropertyInteger('DeviceInstanceAcousticAlarm');
@@ -189,8 +163,12 @@ trait ASIRHM_Config
                             'value'   => 2
                         ],
                         [
-                            'caption' => 'HM-LC-Sw4-WM, Kanal n',
+                            'caption' => 'HM-LC-Sw4-WM, Kanal 1/2/3/4',
                             'value'   => 3
+                        ],
+                        [
+                            'caption' => 'HM-LC-Sw2-FM, Kanal 1/2',
+                            'value'   => 4
                         ]
                     ]
                 ],
@@ -250,7 +228,7 @@ trait ASIRHM_Config
             ]
         ];
 
-        ##### Optical alarm
+        ##### Element: Optical alarm
 
         //Optical alarm instance
         $deviceInstanceOpticalAlarm = $this->ReadPropertyInteger('DeviceInstanceOpticalAlarm');
@@ -284,8 +262,12 @@ trait ASIRHM_Config
                             'value'   => 1
                         ],
                         [
-                            'caption' => 'HM-LC-Sw4-WM, Kanal n',
+                            'caption' => 'HM-LC-Sw4-WM, Kanal 1/2/3/4',
                             'value'   => 2
+                        ],
+                        [
+                            'caption' => 'HM-LC-Sw2-FM, Kanal 1/2',
+                            'value'   => 3
                         ]
                     ]
                 ],
@@ -345,7 +327,7 @@ trait ASIRHM_Config
             ]
         ];
 
-        ##### Tone acknowledgement
+        ##### Element: Tone acknowledgement
 
         //Tone acknowledgement instance
         $deviceInstanceToneAcknowledgement = $this->ReadPropertyInteger('DeviceInstanceToneAcknowledgement');
@@ -436,22 +418,161 @@ trait ASIRHM_Config
             ]
         ];
 
-        //Trigger list
+        ##### Element: Pre alarm
+
+        $form['elements'][] = [
+            'type'    => 'ExpansionPanel',
+            'caption' => 'Voralarm',
+            'items'   => [
+                [
+                    'type'    => 'NumberSpinner',
+                    'name'    => 'PreAlarmDuration',
+                    'caption' => 'Dauer',
+                    'suffix'  => 'Sekunden'
+                ],
+                [
+                    'type'    => 'CheckBox',
+                    'name'    => 'UsePreAlarmAcousticAlarm',
+                    'caption' => 'Akustischer Alarm'
+                ],
+                [
+                    'type'    => 'NumberSpinner',
+                    'name'    => 'PreAlarmAcousticDuration',
+                    'caption' => 'Akustische Alarmdauer',
+                    'suffix'  => 'Sekunden'
+                ],
+                [
+                    'type'    => 'CheckBox',
+                    'name'    => 'UsePreAlarmOpticalAlarm',
+                    'caption' => 'Optischer Alarm'
+                ],
+                [
+                    'type'    => 'NumberSpinner',
+                    'name'    => 'PreAlarmOpticalDuration',
+                    'caption' => 'Optische Alarmdauer',
+                    'suffix'  => 'Sekunden'
+                ]
+            ]
+        ];
+
+        ##### Element: Main alarm
+
+        $form['elements'][] = [
+            'type'    => 'ExpansionPanel',
+            'caption' => 'Hauptalarm',
+            'items'   => [
+                [
+                    'type'    => 'NumberSpinner',
+                    'name'    => 'MainAlarmDuration',
+                    'caption' => 'Dauer',
+                    'suffix'  => 'Sekunden'
+                ],
+                [
+                    'type'    => 'NumberSpinner',
+                    'name'    => 'MaximumSignallingAmountAcousticAlarm',
+                    'caption' => 'Maximale Auslösungen',
+                    'minimum' => 0,
+                    'suffix'  => 'Anzahl'
+                ],
+                [
+                    'type'    => 'CheckBox',
+                    'name'    => 'UseMainAlarmAcousticAlarm',
+                    'caption' => 'Akustischer Alarm'
+                ],
+                [
+                    'type'    => 'NumberSpinner',
+                    'name'    => 'MainAlarmAcousticDuration',
+                    'caption' => 'Akustische Alarmdauer',
+                    'suffix'  => 'Sekunden'
+                ],
+                [
+                    'type'    => 'CheckBox',
+                    'name'    => 'UseMainAlarmOpticalAlarm',
+                    'caption' => 'Optischer Alarm'
+                ],
+                [
+                    'type'    => 'NumberSpinner',
+                    'name'    => 'MainAlarmOpticalDuration',
+                    'caption' => 'Optische Alarmdauer',
+                    'suffix'  => 'Sekunden'
+                ]
+            ]
+        ];
+
+        ##### Element: Post alarm
+
+        $form['elements'][] = [
+            'type'    => 'ExpansionPanel',
+            'caption' => 'Nachalarm',
+            'items'   => [
+                [
+                    'type'    => 'CheckBox',
+                    'name'    => 'UsePostAlarmOpticalAlarm',
+                    'caption' => 'Optischer Alarm'
+                ],
+                [
+                    'type'    => 'NumberSpinner',
+                    'name'    => 'PostAlarmOpticalDuration',
+                    'caption' => 'Optische Alarmdauer',
+                    'minimum' => 0,
+                    'maximum' => 1800,
+                    'suffix'  => 'Sekunden'
+                ]
+            ]
+        ];
+
+        ##### Element: Panic alarm
+
+        $form['elements'][] = [
+            'type'    => 'ExpansionPanel',
+            'caption' => 'Panikalarm',
+            'items'   => [
+                [
+                    'type'    => 'NumberSpinner',
+                    'name'    => 'PanicAlarmDuration',
+                    'caption' => 'Dauer',
+                    'suffix'  => 'Sekunden'
+                ],
+                [
+                    'type'    => 'CheckBox',
+                    'name'    => 'UsePanicAlarmAcousticAlarm',
+                    'caption' => 'Akustischer Alarm'
+                ],
+                [
+                    'type'    => 'NumberSpinner',
+                    'name'    => 'PanicAlarmAcousticDuration',
+                    'caption' => 'Akustische Alarmdauer',
+                    'suffix'  => 'Sekunden'
+                ],
+                [
+                    'type'    => 'CheckBox',
+                    'name'    => 'UsePanicAlarmOpticalAlarm',
+                    'caption' => 'Optischer Alarm'
+                ],
+                [
+                    'type'    => 'NumberSpinner',
+                    'name'    => 'PanicAlarmOpticalDuration',
+                    'caption' => 'Optische Alarmdauer',
+                    'suffix'  => 'Sekunden'
+                ]
+            ]
+        ];
+
+        ##### Element: Trigger list
+
         $triggerListValues = [];
         $variables = json_decode($this->ReadPropertyString('TriggerList'), true);
         foreach ($variables as $variable) {
-            $rowColor = '#C0FFC0'; //light green
-            if (!$variable['Use']) {
-                $rowColor = '#DFDFDF'; //grey
-            }
+            $triggerID = 0;
+            $conditions = true;
             //Primary condition
             if ($variable['PrimaryCondition'] != '') {
                 $primaryCondition = json_decode($variable['PrimaryCondition'], true);
                 if (array_key_exists(0, $primaryCondition)) {
                     if (array_key_exists(0, $primaryCondition[0]['rules']['variable'])) {
-                        $id = $primaryCondition[0]['rules']['variable'][0]['variableID'];
-                        if ($id <= 1 || !@IPS_ObjectExists($id)) { //0 = main category, 1 = none
-                            $rowColor = '#FFC0C0'; //red
+                        $triggerID = $primaryCondition[0]['rules']['variable'][0]['variableID'];
+                        if ($triggerID <= 1 || !@IPS_ObjectExists($triggerID)) { //0 = main category, 1 = none
+                            $conditions = false;
                         }
                     }
                 }
@@ -466,14 +587,28 @@ trait ASIRHM_Config
                             if (array_key_exists('variableID', $rule)) {
                                 $id = $rule['variableID'];
                                 if ($id <= 1 || !@IPS_ObjectExists($id)) { //0 = main category, 1 = none
-                                    $rowColor = '#FFC0C0'; //red
+                                    $conditions = false;
                                 }
                             }
                         }
                     }
                 }
             }
-            $triggerListValues[] = ['rowColor' => $rowColor];
+            $stateName = 'Fehler!';
+            $rowColor = '#FFC0C0'; //red
+            if ($conditions) {
+                $stateName = 'Bedingung nicht erfüllt';
+                $rowColor = '#C0C0FF'; //purple
+                if (IPS_IsConditionPassing($variable['PrimaryCondition']) && IPS_IsConditionPassing($variable['SecondaryCondition'])) {
+                    $stateName = 'Bedingung erfüllt';
+                    $rowColor = '#C0FFC0'; //light green
+                }
+                if (!$variable['Use']) {
+                    $stateName = 'Deaktiviert!';
+                    $rowColor = '#DFDFDF'; //grey
+                }
+            }
+            $triggerListValues[] = ['ActualStatus' => $stateName, 'ID' => $triggerID, 'rowColor' => $rowColor];
         }
 
         $form['elements'][] = [
@@ -495,6 +630,19 @@ trait ASIRHM_Config
                             'edit'    => [
                                 'type' => 'CheckBox'
                             ]
+                        ],
+                        [
+                            'name'    => 'ActualStatus',
+                            'caption' => 'Aktueller Status',
+                            'width'   => '200px',
+                            'add'     => ''
+                        ],
+                        [
+                            'caption' => 'ID',
+                            'name'    => 'ID',
+                            'onClick' => self::MODULE_PREFIX . '_ModifyTriggerListButton($id, "TriggerListConfigurationButton", $TriggerList["PrimaryCondition"]);',
+                            'width'   => '100px',
+                            'add'     => ''
                         ],
                         [
                             'caption' => 'Bezeichnung',
@@ -603,81 +751,56 @@ trait ASIRHM_Config
                             ]
                         ],
                         [
-                            'caption' => 'Akustischer Alarm',
-                            'name'    => 'AcousticAlarm',
-                            'width'   => '300px',
-                            'add'     => 2,
-                            'visible' => false,
+                            'caption' => 'Modus',
+                            'name'    => 'SignalingMode',
+                            'width'   => '200px',
+                            'add'     => 0,
                             'edit'    => [
                                 'type'    => 'Select',
                                 'options' => [
                                     [
-                                        'caption' => '0 - Aus',
+                                        'caption' => 'Keine Funktion',
                                         'value'   => 0
                                     ],
                                     [
-                                        'caption' => '1 - An',
+                                        'caption' => 'Alarmsirene Aus',
                                         'value'   => 1
                                     ],
                                     [
-                                        'caption' => '2 - Keine Funktion',
-                                        'value'   => 2
-                                    ]
-                                ]
-                            ]
-                        ],
-                        [
-                            'caption' => 'Optischer Alarm',
-                            'name'    => 'OpticalAlarm',
-                            'width'   => '300px',
-                            'add'     => 2,
-                            'visible' => false,
-                            'edit'    => [
-                                'type'    => 'Select',
-                                'options' => [
-                                    [
-                                        'caption' => '0 - Aus',
-                                        'value'   => 0
-                                    ],
-                                    [
-                                        'caption' => '1 - An',
-                                        'value'   => 1
-                                    ],
-                                    [
-                                        'caption' => '2 - Keine Funktion',
-                                        'value'   => 2
-                                    ]
-                                ]
-                            ]
-                        ],
-                        [
-                            'caption' => 'Quittungston',
-                            'name'    => 'ToneAcknowledgement',
-                            'width'   => '300px',
-                            'add'     => 4,
-                            'visible' => false,
-                            'edit'    => [
-                                'type'    => 'Select',
-                                'options' => [
-                                    [
-                                        'caption' => '0 - Alarm Aus',
-                                        'value'   => 0
-                                    ],
-                                    [
-                                        'caption' => '1 - Alle Sensoren scharf (extern scharf)',
-                                        'value'   => 1
-                                    ],
-                                    [
-                                        'caption' => '2 - Außensensoren scharf (intern scharf)',
+                                        'caption' => 'Alarmsirene An (Alarmstufen)',
                                         'value'   => 2
                                     ],
                                     [
-                                        'caption' => '3 - Alarm blockiert',
+                                        'caption' => 'Voralarm',
                                         'value'   => 3
                                     ],
                                     [
-                                        'caption' => '4 - Keine Funktion',
+                                        'caption' => 'Hauptalarm',
                                         'value'   => 4
+                                    ],
+                                    [
+                                        'caption' => 'Nachalarm',
+                                        'value'   => 5
+                                    ],
+                                    [
+                                        'caption' => 'Panikalarm',
+                                        'value'   => 6
+                                    ],
+                                    [
+                                        'caption' => 'Quittungston - Alarm Aus',
+                                        'value'   => 7
+                                    ],
+                                    [
+                                        'caption' => 'Quittungston - Außensensoren scharf (intern scharf)',
+                                        'value'   => 8
+                                    ],
+                                    [
+                                        'caption' => 'Quittungston - Alle Sensoren scharf (extern scharf)',
+                                        'value'   => 9
+                                    ],
+                                    [
+                                        'caption' => 'Quittungston - Alarm blockiert',
+                                        'value'   => 10
                                     ]
                                 ]
                             ]
@@ -695,7 +818,8 @@ trait ASIRHM_Config
             ]
         ];
 
-        //Command control
+        ##### Element: Command control
+
         $id = $this->ReadPropertyInteger('CommandControl');
         $enableButton = false;
         if ($id > 1 && @IPS_ObjectExists($id)) { //0 = main category, 1 = none
@@ -737,6 +861,57 @@ trait ASIRHM_Config
             ]
         ];
 
+        ##### Element: Alarm protocol
+
+        $id = $this->ReadPropertyInteger('AlarmProtocol');
+        $enableButton = false;
+        if ($id > 1 && @IPS_ObjectExists($id)) { //0 = main category, 1 = none
+            $enableButton = true;
+        }
+        $form['elements'][] = [
+            'type'    => 'ExpansionPanel',
+            'caption' => 'Alarmprotokoll',
+            'items'   => [
+                [
+                    'type'  => 'RowLayout',
+                    'items' => [
+                        [
+                            'type'     => 'SelectModule',
+                            'name'     => 'AlarmProtocol',
+                            'caption'  => 'Instanz',
+                            'moduleID' => self::ALARMPROTOCOL_MODULE_GUID,
+                            'width'    => '600px',
+                            'onChange' => self::MODULE_PREFIX . '_ModifyButton($id, "AlarmProtocolConfigurationButton", "ID " . $AlarmProtocol . " Instanzkonfiguration", $AlarmProtocol);'
+                        ],
+                        [
+                            'type'    => 'Button',
+                            'caption' => 'Neue Instanz erstellen',
+                            'onClick' => self::MODULE_PREFIX . '_CreateAlarmProtocolInstance($id);'
+                        ],
+                        [
+                            'type'    => 'Label',
+                            'caption' => ' '
+                        ],
+                        [
+                            'type'     => 'OpenObjectButton',
+                            'caption'  => 'ID ' . $id . ' Instanzkonfiguration',
+                            'name'     => 'AlarmProtocolConfigurationButton',
+                            'visible'  => $enableButton,
+                            'objectID' => $id
+                        ]
+                    ]
+                ],
+                [
+                    'type'    => 'ValidationTextBox',
+                    'name'    => 'Location',
+                    'caption' => 'Standortbezeichnung (z.B. Musterstraße 1)',
+                    'width'   => '600px'
+                ]
+            ]
+        ];
+
+        ##### Element: Automatic deactivation
+
         $form['elements'][] = [
             'type'    => 'ExpansionPanel',
             'caption' => 'Deaktivierung',
@@ -759,7 +934,59 @@ trait ASIRHM_Config
             ]
         ];
 
+        ##### Element: Visualisation
+
+        $form['elements'][] = [
+            'type'    => 'ExpansionPanel',
+            'caption' => 'Visualisierung',
+            'items'   => [
+                [
+                    'type'    => 'Label',
+                    'caption' => 'WebFront',
+                    'bold'    => true,
+                    'italic'  => true
+                ],
+                [
+                    'type'    => 'Label',
+                    'caption' => 'Anzeigeoptionen',
+                    'italic'  => true
+                ],
+                [
+                    'type'    => 'CheckBox',
+                    'name'    => 'EnableActive',
+                    'caption' => 'Aktiv'
+                ],
+                [
+                    'type'    => 'CheckBox',
+                    'name'    => 'EnableAlarmSiren',
+                    'caption' => 'Alarmsirene'
+                ],
+                [
+                    'type'    => 'CheckBox',
+                    'name'    => 'EnableAlarmLevel',
+                    'caption' => 'Alarmstufe'
+                ],
+                [
+                    'type'    => 'CheckBox',
+                    'name'    => 'EnableSignalingAmount',
+                    'caption' => 'Auslösungen'
+                ],
+                [
+                    'type'    => 'CheckBox',
+                    'name'    => 'EnableResetSignalingAmount',
+                    'caption' => 'Rückstellung'
+                ],
+                [
+                    'type'    => 'CheckBox',
+                    'name'    => 'EnableToneAcknowledgement',
+                    'caption' => 'Quittungston'
+                ]
+            ]
+        ];
+
         ########## Actions
+
+        ##### Action: Configuration
 
         $form['actions'][] = [
             'type'    => 'ExpansionPanel',
@@ -773,7 +1000,8 @@ trait ASIRHM_Config
             ]
         ];
 
-        //Test center
+        ##### Action: Test center
+
         $form['actions'][] = [
             'type'    => 'ExpansionPanel',
             'caption' => 'Schaltfunktionen',
@@ -784,7 +1012,8 @@ trait ASIRHM_Config
             ]
         ];
 
-        //Registered references
+        ##### Action: Registered references
+
         $registeredReferences = [];
         $references = $this->GetReferenceList();
         foreach ($references as $reference) {
@@ -838,7 +1067,8 @@ trait ASIRHM_Config
             ]
         ];
 
-        //Registered messages
+        ##### Action: Registered messages
+
         $registeredMessages = [];
         $messages = $this->GetMessageList();
         foreach ($messages as $id => $messageID) {
