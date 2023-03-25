@@ -8,6 +8,7 @@
  * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
  */
 
+/** @noinspection PhpUndefinedFunctionInspection */
 /** @noinspection DuplicatedCode */
 /** @noinspection PhpUnused */
 
@@ -742,18 +743,16 @@ trait ASIRHMIP_Config
         $triggerListValues = [];
         $variables = json_decode($this->ReadPropertyString('TriggerList'), true);
         foreach ($variables as $variable) {
-            $rowColor = '#C0FFC0'; //light green
-            if (!$variable['Use']) {
-                $rowColor = '#DFDFDF'; //grey
-            }
+            $triggerID = 0;
+            $conditions = true;
             //Primary condition
             if ($variable['PrimaryCondition'] != '') {
                 $primaryCondition = json_decode($variable['PrimaryCondition'], true);
                 if (array_key_exists(0, $primaryCondition)) {
                     if (array_key_exists(0, $primaryCondition[0]['rules']['variable'])) {
-                        $id = $primaryCondition[0]['rules']['variable'][0]['variableID'];
-                        if ($id <= 1 || !@IPS_ObjectExists($id)) { //0 = main category, 1 = none
-                            $rowColor = '#FFC0C0'; //red
+                        $triggerID = $primaryCondition[0]['rules']['variable'][0]['variableID'];
+                        if ($triggerID <= 1 || !@IPS_ObjectExists($triggerID)) { //0 = main category, 1 = none
+                            $conditions = false;
                         }
                     }
                 }
@@ -768,14 +767,28 @@ trait ASIRHMIP_Config
                             if (array_key_exists('variableID', $rule)) {
                                 $id = $rule['variableID'];
                                 if ($id <= 1 || !@IPS_ObjectExists($id)) { //0 = main category, 1 = none
-                                    $rowColor = '#FFC0C0'; //red
+                                    $conditions = false;
                                 }
                             }
                         }
                     }
                 }
             }
-            $triggerListValues[] = ['rowColor' => $rowColor];
+            $stateName = 'Fehler!';
+            $rowColor = '#FFC0C0'; //red
+            if ($conditions) {
+                $stateName = 'Bedingung nicht erfüllt';
+                $rowColor = '#C0C0FF'; //purple
+                if (IPS_IsConditionPassing($variable['PrimaryCondition']) && IPS_IsConditionPassing($variable['SecondaryCondition'])) {
+                    $stateName = 'Bedingung erfüllt';
+                    $rowColor = '#C0FFC0'; //light green
+                }
+                if (!$variable['Use']) {
+                    $stateName = 'Deaktiviert!';
+                    $rowColor = '#DFDFDF'; //grey
+                }
+            }
+            $triggerListValues[] = ['ActualStatus' => $stateName, 'ID' => $triggerID, 'rowColor' => $rowColor];
         }
 
         $form['elements'][] = [

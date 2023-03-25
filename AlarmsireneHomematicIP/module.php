@@ -28,7 +28,7 @@ class AlarmsireneHomematicIP extends IPSModule
     //Constants
     private const MODULE_NAME = 'Alarmsirene Homematic IP';
     private const MODULE_PREFIX = 'ASIRHMIP';
-    private const MODULE_VERSION = '7.0-2, 24.03.2023';
+    private const MODULE_VERSION = '7.0-3, 25.03.2023';
     private const ABLAUFSTEUERUNG_MODULE_GUID = '{0559B287-1052-A73E-B834-EBD9B62CB938}';
     private const ABLAUFSTEUERUNG_MODULE_PREFIX = 'AST';
     private const ALARMPROTOCOL_MODULE_GUID = '{66BDB59B-E80F-E837-6640-005C32D5FC24}';
@@ -187,6 +187,8 @@ class AlarmsireneHomematicIP extends IPSModule
         //Register references and update messages
         $names = [];
         $names[] = ['propertyName' => 'DeviceInstance', 'useUpdate' => false];
+        $names[] = ['propertyName' => 'CommandControl', 'useUpdate' => false];
+        $names[] = ['propertyName' => 'AlarmProtocol', 'useUpdate' => false];
 
         foreach ($names as $name) {
             $id = $this->ReadPropertyInteger($name['propertyName']);

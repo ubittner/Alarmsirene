@@ -18,8 +18,9 @@ Der Nutzer stimmt den o.a. Bedingungen, sowie den Lizenzbedingungen ausdrücklic
 4. [Auslöser](#4-auslöser)
 5. [Externe Aktion](#5-externe-aktion)
 6. [PHP-Befehlsreferenz](#6-php-befehlsreferenz)
-   1. [Signalisierung auslösen](#61-signalisierung-auslösen)
-   2. [Alternative Ansteuerung](#62-alternative-ansteuerung)
+   1. [Alarmsirene schalten](#61-alarmsirene-schalten)
+   2. [Signalisierung auslösen](#62-alternative-ansteuerung)
+   3. [Alternative Ansteuerung](#63-alternative-ansteuerung)
 
 ### 1. Modulbeschreibung
 
@@ -40,13 +41,13 @@ Sollten mehrere Homematic Geräte geschaltet werden, so sollte zusätzlich das M
                                    +----------------------+
             Auslöser <-------------+ Alarmsirene (Modul)  |<------------- externe Aktion
            +-----------------------+                      |
-           |                       | Akustisches Signal   |
+           |                       | Alarmsirene          |
            v                       |                      |
-+---------------------+            | Optisches Signal     |
-| Alarmierung (Modul) |            |                      |
-|                     |            | Einheit Zeitdauer    |
++---------------------+            | Alarmstufe           |
+| Alarmierung (Modul) |            | Auslösungen          |
+|                     |            | Rückstellung         |
 | Alarmierung         |            |                      |
-|                     |            | Wert Zeitdauer       |
+|                     |            | Quittungston         |
 | Alarmstufe          |            +-------+--+-----------+
 +---------------------+                    |  |
                                            |  |
@@ -71,11 +72,30 @@ Als Auslöser kann auch das Modul Alarmierung genutzt werden.
 Das Modul Alarmsirene kann über eine externe Aktion geschaltet werden.  
 Nachfolgendes Beispiel löst einen akustischen und optischen Alarm für 180 Sekunden aus.  
 
-> ASIRHMIP_ExecuteSignaling(12345, 1, 2, 0, 180);
+> ASIRHMIP_ToggleAlarmSiren(12345, true);
 
 ### 6. PHP-Befehlsreferenz
 
-#### 6.1 Signalisierung auslösen
+#### 6.1 Alarmsirene schalten
+
+```
+ASIRHMIP_ToggleAlarmSiren(integer INSTANCE_ID, boolean STATE);
+```
+
+Der Befehl liefert keinen Rückgabewert.
+
+| Parameter     | Wert  | Bezeichnung    |
+|---------------|-------|----------------|
+| `INSTANCE_ID` |       | ID der Instanz |
+| `STATE`       | false | Aus            |
+|               | true  | An             |
+
+Beispiel:
+> ASIRHMIP_ToggleAlarmSiren(12345, false);
+
+---
+
+#### 6.2 Signalisierung auslösen
 
 ```
 ASIRHMIP_ExecuteSignaling(integer INSTANCE_ID, integer ACOUSTIC_ALARM_SELECTION, integer OPTICAL_ALARM_SELECTION, integer DURATION_UNIT, integer DURATION_VALUE);
@@ -125,12 +145,14 @@ Der Befehl liefert keinen Rückgabewert.
 | `DURATION_VALUE`           |                 | Wert Zeitdauer                         |                                                   |
 | 0 - n                      | DURATION_VALUE  | Wert                                   |                                                   |
 
+Nachfolgendes Beispiel löst einen akustischen und optischen Alarm für 60 Sekunden aus.
+
 Beispiel:  
-> ASIRHMIP_ExecuteSignaling(12345, 1, 2, 1, 3);
+> ASIRHMIP_ExecuteSignaling(12345, 3, 2, 3, 60);
 
 ---
 
-#### 6.2 Alternative Ansteuerung
+#### 6.3 Alternative Ansteuerung
 
 Die Ansteuerung kann alternativ auch direkt an das Gerät erfolgen.
 
