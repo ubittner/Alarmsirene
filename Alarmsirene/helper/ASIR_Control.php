@@ -22,10 +22,9 @@ trait ASIR_Control
     public function StartAutomaticDeactivation(): void
     {
         $this->SendDebug(__FUNCTION__, 'wird ausgeführt', 0);
-        $this->SetValue('Active', false);
         //Turn the alarm siren off
-        $this->ToggleAcousticAlarm(false);
-        $this->ToggleOpticalAlarm(false);
+        $this->SetAlarmLevel();
+        $this->SetValue('Active', false);
         $this->SetAutomaticDeactivationTimer();
     }
 
@@ -97,11 +96,10 @@ trait ASIR_Control
         $start = $this->GetTimerInterval('StartAutomaticDeactivation');
         $stop = $this->GetTimerInterval('StopAutomaticDeactivation');
         if ($start > $stop) {
+            //Turn alarm siren off
+            $this->SetAlarmLevel();
             //Deactivation timer is active, must be toggled to inactive
             $this->SetValue('Active', false);
-            //Turn alarm siren off
-            $this->ToggleAcousticAlarm(false);
-            $this->ToggleOpticalAlarm(false);
             return true;
         } else {
             //Deactivation timer is inactive, must be toggled to active

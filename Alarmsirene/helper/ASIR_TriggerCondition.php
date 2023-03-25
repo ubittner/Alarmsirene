@@ -10,7 +10,6 @@
 
 /** @noinspection PhpUndefinedFunctionInspection */
 /** @noinspection DuplicatedCode */
-/** @noinspection PhpUnused */
 
 declare(strict_types=1);
 
@@ -67,25 +66,32 @@ trait ASIR_TriggerCondition
                                 $this->SendDebug(__FUNCTION__, 'Abbruch, die Bedingungen wurden nicht erfüllt!', 0);
                             } else {
                                 $this->SendDebug(__FUNCTION__, 'Die Bedingungen wurden erfüllt.', 0);
-                                //Acoustic alarm
-                                switch ($variable['AcousticAlarm']) {
-                                    case 0:
-                                        $this->ToggleAcousticAlarm(false);
+                                switch ($variable['SignalingMode']) {
+                                    case 0: //not used
                                         break;
 
-                                    case 1:
-                                        $this->ToggleAcousticAlarm(true);
+                                    case 1: //alarm siren off
+                                        $this->ToggleAlarmSiren(false);
                                         break;
 
-                                }
-                                //Optical Alarm
-                                switch ($variable['OpticalAlarm']) {
-                                    case 0:
-                                        $this->ToggleOpticalAlarm(false);
+                                    case 2: //alarm siren on (alarm level)
+                                        $this->ToggleAlarmSiren(true);
                                         break;
 
-                                    case 1:
-                                        $this->ToggleOpticalAlarm(true);
+                                    case 3: //pre alarm
+                                        $this->SetAlarmLevel(1);
+                                        break;
+
+                                    case 4: //main alarm
+                                        $this->SetAlarmLevel(2);
+                                        break;
+
+                                    case 5: //post alarm
+                                        $this->SetAlarmLevel(3);
+                                        break;
+
+                                    case 6: //panic alarm
+                                        $this->SetAlarmLevel(4);
                                         break;
 
                                 }

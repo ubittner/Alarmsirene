@@ -20,6 +20,7 @@ include_once __DIR__ . '/helper/ASIR_autoload.php';
 class Alarmsirene extends IPSModule
 {
     //Helper
+    use ASIR_AlarmProtocol;
     use ASIR_Config;
     use ASIR_Control;
     use ASIR_Signaling;
@@ -28,9 +29,10 @@ class Alarmsirene extends IPSModule
     //Constants
     private const MODULE_NAME = 'Alarmsirene';
     private const MODULE_PREFIX = 'ASIR';
-    private const MODULE_VERSION = '7.0-1, 08.09.2022';
+    private const MODULE_VERSION = '7.0-3, 25.03.2023';
     private const ABLAUFSTEUERUNG_MODULE_GUID = '{0559B287-1052-A73E-B834-EBD9B62CB938}';
     private const ABLAUFSTEUERUNG_MODULE_PREFIX = 'AST';
+    private const ALARMPROTOCOL_MODULE_GUID = '{66BDB59B-E80F-E837-6640-005C32D5FC24}';
 
     public function Create()
     {
@@ -39,19 +41,62 @@ class Alarmsirene extends IPSModule
 
         ########## Properties
 
+        ##### Info
         $this->RegisterPropertyString('Note', '');
-        $this->RegisterPropertyBoolean('EnableActive', false);
-        $this->RegisterPropertyBoolean('EnableAcousticAlarm', true);
-        $this->RegisterPropertyBoolean('EnableOpticalAlarm', true);
+
+        ##### Device acoustic alarm
         $this->RegisterPropertyInteger('AcousticAlarm', 0);
         $this->RegisterPropertyInteger('SwitchingDelayAcousticAlarm', 0);
+
+        ##### Device optical alarm
         $this->RegisterPropertyInteger('OpticalAlarm', 0);
         $this->RegisterPropertyInteger('SwitchingDelayOpticalAlarm', 0);
-        $this->RegisterPropertyInteger('CommandControl', 0);
+
+        ##### Alarm levels
+        //Pre alarm
+        $this->RegisterPropertyInteger('PreAlarmDuration', 30);
+        $this->RegisterPropertyBoolean('UsePreAlarmAcousticAlarm', true);
+        $this->RegisterPropertyInteger('PreAlarmAcousticDuration', 3);
+        $this->RegisterPropertyBoolean('UsePreAlarmOpticalAlarm', true);
+        $this->RegisterPropertyInteger('PreAlarmOpticalDuration', 30);
+        //Main alarm
+        $this->RegisterPropertyInteger('MainAlarmDuration', 180);
+        $this->RegisterPropertyInteger('MaximumSignallingAmountAcousticAlarm', 3);
+        $this->RegisterPropertyBoolean('UseMainAlarmAcousticAlarm', true);
+        $this->RegisterPropertyInteger('MainAlarmAcousticDuration', 180);
+        $this->RegisterPropertyBoolean('UseMainAlarmOpticalAlarm', true);
+        $this->RegisterPropertyInteger('MainAlarmOpticalDuration', 180);
+        //Post alarm
+        $this->RegisterPropertyBoolean('UsePostAlarmOpticalAlarm', true);
+        $this->RegisterPropertyInteger('PostAlarmOpticalDuration', 300);
+        //Panic alarm
+        $this->RegisterPropertyInteger('PanicAlarmDuration', 60);
+        $this->RegisterPropertyBoolean('UsePanicAlarmAcousticAlarm', true);
+        $this->RegisterPropertyInteger('PanicAlarmAcousticDuration', 60);
+        $this->RegisterPropertyBoolean('UsePanicAlarmOpticalAlarm', true);
+        $this->RegisterPropertyInteger('PanicAlarmOpticalDuration', 60);
+
+        ##### Trigger list
         $this->RegisterPropertyString('TriggerList', '[]');
+
+        ##### Command Control
+        $this->RegisterPropertyInteger('CommandControl', 0);
+
+        ##### Alarm protocol
+        $this->RegisterPropertyInteger('AlarmProtocol', 0);
+        $this->RegisterPropertyString('Location', '');
+
+        ##### Automatic deactivation
         $this->RegisterPropertyBoolean('UseAutomaticDeactivation', false);
         $this->RegisterPropertyString('AutomaticDeactivationStartTime', '{"hour":22,"minute":0,"second":0}');
         $this->RegisterPropertyString('AutomaticDeactivationEndTime', '{"hour":6,"minute":0,"second":0}');
+
+        ##### Visualisation
+        $this->RegisterPropertyBoolean('EnableActive', false);
+        $this->RegisterPropertyBoolean('EnableAlarmSiren', true);
+        $this->RegisterPropertyBoolean('EnableAlarmLevel', true);
+        $this->RegisterPropertyBoolean('EnableSignalingAmount', true);
+        $this->RegisterPropertyBoolean('EnableResetSignalingAmount', true);
 
         ########## Variables
 
@@ -63,27 +108,54 @@ class Alarmsirene extends IPSModule
             $this->SetValue('Active', true);
         }
 
-        //Acoustic alarm
-        $id = @$this->GetIDForIdent('AcousticAlarm');
-        $this->RegisterVariableBoolean('AcousticAlarm', 'Akustischer Alarm', '~Switch', 20);
-        $this->EnableAction('AcousticAlarm');
+        //Alarm siren
+        $id = @$this->GetIDForIdent('AlarmSiren');
+        $this->RegisterVariableBoolean('AlarmSiren', 'Alarmsirene', '~Switch', 20);
+        $this->EnableAction('AlarmSiren');
         if (!$id) {
-            IPS_SetIcon($this->GetIDForIdent('AcousticAlarm'), 'Alert');
+            IPS_SetIcon(@$this->GetIDForIdent('AlarmSiren'), 'Alert');
         }
 
-        //Optical alarm
-        $id = @$this->GetIDForIdent('OpticalAlarm');
-        $this->RegisterVariableBoolean('OpticalAlarm', 'Optischer Alarm', '~Switch', 30);
-        $this->EnableAction('OpticalAlarm');
-        if (!$id) {
-            IPS_SetIcon($this->GetIDForIdent('OpticalAlarm'), 'Bulb');
+        //Alarm level
+        $profile = self::MODULE_PREFIX . '.' . $this->InstanceID . '.AlarmLevel';
+        if (IPS_VariableProfileExists($profile)) {
+            IPS_DeleteVariableProfile($profile);
         }
+        if (!IPS_VariableProfileExists($profile)) {
+            IPS_CreateVariableProfile($profile, 1);
+            IPS_SetVariableProfileIcon($profile, 'Rocket');
+        }
+        IPS_SetVariableProfileAssociation($profile, 0, 'Aus', '', 0x00FF00);
+        IPS_SetVariableProfileAssociation($profile, 1, 'Voralarm', '', 0xFFFF00);
+        IPS_SetVariableProfileAssociation($profile, 2, 'Hauptalarm', '', 0xFF0000);
+        IPS_SetVariableProfileAssociation($profile, 3, 'Nachalarm', '', 0xFF9500);
+        IPS_SetVariableProfileAssociation($profile, 4, 'Panikalarm', '', 0xFF0000);
+        $this->RegisterVariableInteger('AlarmLevel', 'Alarmstufe', $profile, 30);
+
+        //Signalling amount
+        $id = @$this->GetIDForIdent('SignallingAmount');
+        $this->RegisterVariableInteger('SignallingAmount', 'Auslösungen', '', 40);
+        if (!$id) {
+            IPS_SetIcon(@$this->GetIDForIdent('SignallingAmount'), 'Warning');
+        }
+
+        //Reset signalling amount
+        $profile = self::MODULE_PREFIX . '.' . $this->InstanceID . '.ResetSignallingAmount';
+        if (!IPS_VariableProfileExists($profile)) {
+            IPS_CreateVariableProfile($profile, 1);
+        }
+        IPS_SetVariableProfileAssociation($profile, 0, 'Reset', 'Repeat', 0xFF0000);
+        $this->RegisterVariableInteger('ResetSignallingAmount', 'Rückstellung', $profile, 50);
+        $this->EnableAction('ResetSignallingAmount');
 
         ########## Timers
 
         $this->RegisterTimer('StartAutomaticDeactivation', 0, self::MODULE_PREFIX . '_StartAutomaticDeactivation(' . $this->InstanceID . ');');
         $this->RegisterTimer('StopAutomaticDeactivation', 0, self::MODULE_PREFIX . '_StopAutomaticDeactivation(' . $this->InstanceID . ',);');
-        $this->RegisterTimer('CheckDeviceState', 0, self::MODULE_PREFIX . '_CheckDeviceState(' . $this->InstanceID . ',);');
+        $this->RegisterTimer('DeactivateAcousticAlarm', 0, self::MODULE_PREFIX . '_ToggleAcousticAlarm(' . $this->InstanceID . ', false);');
+        $this->RegisterTimer('DeactivateOpticalAlarm', 0, self::MODULE_PREFIX . '_ToggleOpticalAlarm(' . $this->InstanceID . ', false);');
+        $this->RegisterTimer('CheckNextAlarmLevel', 0, self::MODULE_PREFIX . '_CheckNextAlarmLevel(' . $this->InstanceID . ');');
+        $this->RegisterTimer('ResetSignallingAmount', 0, self::MODULE_PREFIX . '_ResetSignallingAmount(' . $this->InstanceID . ');');
     }
 
     public function ApplyChanges()
@@ -115,9 +187,10 @@ class Alarmsirene extends IPSModule
 
         //Register references and update messages
         $names = [];
-        $names[] = ['propertyName' => 'AcousticAlarm', 'useUpdate' => true];
-        $names[] = ['propertyName' => 'OpticalAlarm', 'useUpdate' => true];
+        $names[] = ['propertyName' => 'AcousticAlarm', 'useUpdate' => false];
+        $names[] = ['propertyName' => 'OpticalAlarm', 'useUpdate' => false];
         $names[] = ['propertyName' => 'CommandControl', 'useUpdate' => false];
+        $names[] = ['propertyName' => 'AlarmProtocol', 'useUpdate' => false];
 
         foreach ($names as $name) {
             $id = $this->ReadPropertyInteger($name['propertyName']);
@@ -168,21 +241,36 @@ class Alarmsirene extends IPSModule
 
         //WebFront options
         IPS_SetHidden($this->GetIDForIdent('Active'), !$this->ReadPropertyBoolean('EnableActive'));
-        IPS_SetHidden($this->GetIDForIdent('AcousticAlarm'), !$this->ReadPropertyBoolean('EnableAcousticAlarm'));
-        IPS_SetHidden($this->GetIDForIdent('OpticalAlarm'), !$this->ReadPropertyBoolean('EnableOpticalAlarm'));
+        IPS_SetHidden($this->GetIDForIdent('AlarmSiren'), !$this->ReadPropertyBoolean('EnableAlarmSiren'));
+        IPS_SetHidden($this->GetIDForIdent('AlarmLevel'), !$this->ReadPropertyBoolean('EnableAlarmLevel'));
+        IPS_SetHidden($this->GetIDForIdent('SignallingAmount'), !$this->ReadPropertyBoolean('EnableSignalingAmount'));
+        IPS_SetHidden($this->GetIDForIdent('ResetSignallingAmount'), !$this->ReadPropertyBoolean('EnableResetSignalingAmount'));
+
+        //Reset
+        $this->SetTimerInterval('DeactivateAcousticAlarm', 0);
+        $this->SetTimerInterval('DeactivateOpticalAlarm', 0);
+        $this->SetTimerInterval('CheckNextAlarmLevel', 0);
+        $this->SetTimerInterval('ResetSignallingAmount', (strtotime('next day midnight') - time()) * 1000);
+        $this->SetValue('SignallingAmount', 0);
+        $this->SetAlarmLevel();
 
         $this->SetAutomaticDeactivationTimer();
         $this->CheckAutomaticDeactivationTimer();
-
-        $this->SetTimerInterval('CheckDeviceState', 0);
-
-        $this->CheckDeviceState();
     }
 
     public function Destroy()
     {
         //Never delete this line!
         parent::Destroy();
+
+        //Delete profiles
+        $profiles = ['AlarmLevel', 'ResetSignallingAmount'];
+        if (!empty($profiles)) {
+            foreach ($profiles as $profile) {
+                $profileName = self::MODULE_PREFIX . '.' . $this->InstanceID . '.' . $profile;
+                $this->UnregisterProfile($profileName);
+            }
+        }
     }
 
     public function MessageSink($TimeStamp, $SenderID, $Message, $Data)
@@ -202,28 +290,13 @@ class Alarmsirene extends IPSModule
                 //$Data[4] = timestamp value changed
                 //$Data[5] = timestamp last value
 
-                $trigger = true;
-                $names = ['AcousticAlarm', 'OpticalAlarm'];
-                foreach ($names as $name) {
-                    if ($SenderID == $this->ReadPropertyInteger($name)) {
-                        $this->CheckDeviceState();
-                        $trigger = false;
-                    }
+                //Check trigger conditions
+                $valueChanged = 'false';
+                if ($Data[1]) {
+                    $valueChanged = 'true';
                 }
-
-                if ($this->CheckMaintenance()) {
-                    return;
-                }
-
-                if ($trigger) {
-                    //Check trigger conditions
-                    $valueChanged = 'false';
-                    if ($Data[1]) {
-                        $valueChanged = 'true';
-                    }
-                    $scriptText = self::MODULE_PREFIX . '_CheckTriggerConditions(' . $this->InstanceID . ', ' . $SenderID . ', ' . $valueChanged . ');';
-                    @IPS_RunScriptText($scriptText);
-                }
+                $scriptText = self::MODULE_PREFIX . '_CheckTriggerConditions(' . $this->InstanceID . ', ' . $SenderID . ', ' . $valueChanged . ');';
+                @IPS_RunScriptText($scriptText);
                 break;
 
         }
@@ -240,6 +313,17 @@ class Alarmsirene extends IPSModule
         }
     }
 
+    public function CreateAlarmProtocolInstance(): void
+    {
+        $id = @IPS_CreateInstance(self::ALARMPROTOCOL_MODULE_GUID);
+        if (is_int($id)) {
+            IPS_SetName($id, 'Alarmprotokoll');
+            echo 'Instanz mit der ID ' . $id . ' wurde erfolgreich erstellt!';
+        } else {
+            echo 'Instanz konnte nicht erstellt werden!';
+        }
+    }
+
     #################### Request Action
 
     public function RequestAction($Ident, $Value)
@@ -247,19 +331,18 @@ class Alarmsirene extends IPSModule
         switch ($Ident) {
 
             case 'Active':
-                $this->SetValue($Ident, $Value);
                 if (!$Value) {
-                    $this->ToggleAcousticAlarm(false);
-                    $this->ToggleOpticalAlarm(false);
+                    $this->SetAlarmLevel();
                 }
+                $this->SetValue($Ident, $Value);
                 break;
 
-            case 'AcousticAlarm':
-                $this->ToggleAcousticAlarm($Value);
+            case 'AlarmSiren':
+                $this->ToggleAlarmSiren($Value);
                 break;
 
-            case 'OpticalAlarm':
-                $this->ToggleOpticalAlarm($Value);
+            case 'ResetSignallingAmount':
+                $this->ResetSignallingAmount();
                 break;
 
         }
@@ -270,6 +353,33 @@ class Alarmsirene extends IPSModule
     private function KernelReady()
     {
         $this->ApplyChanges();
+    }
+
+    private function UnregisterProfile(string $Name): void
+    {
+        if (!IPS_VariableProfileExists($Name)) {
+            return;
+        }
+        foreach (IPS_GetVariableList() as $VarID) {
+            if (IPS_GetParent($VarID) == $this->InstanceID) {
+                continue;
+            }
+            if (IPS_GetVariable($VarID)['VariableCustomProfile'] == $Name) {
+                return;
+            }
+            if (IPS_GetVariable($VarID)['VariableProfile'] == $Name) {
+                return;
+            }
+        }
+        foreach (IPS_GetMediaListByType(MEDIATYPE_CHART) as $mediaID) {
+            $content = json_decode(base64_decode(IPS_GetMediaContent($mediaID)), true);
+            foreach ($content['axes'] as $axis) {
+                if ($axis['profile' === $Name]) {
+                    return;
+                }
+            }
+        }
+        IPS_DeleteVariableProfile($Name);
     }
 
     private function CheckMaintenance(): bool

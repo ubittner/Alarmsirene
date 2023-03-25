@@ -16,8 +16,7 @@ Der Nutzer stimmt den o.a. Bedingungen, sowie den Lizenzbedingungen ausdrücklic
 4. [Auslöser](#4-auslöser)
 5. [Externe Aktion](#5-externe-aktion)
 6. [PHP-Befehlsreferenz](#6-php-befehlsreferenz)
-   1. [Akustischer Alarm](#61-akustischer-alarm)
-   2. [Optischer Alarm](#62-optischer-alarm)
+   1. [Alarmsirene schalten](#61-alarmsirene-schalten)
 
 ### 1. Modulbeschreibung
 
@@ -35,10 +34,14 @@ Sollten mehrere Variablen geschaltet werden, so sollte zusätzlich das Modul Abl
                                    +----------------------+
             Auslöser <-------------+ Alarmsirene (Modul)  |<------------- externe Aktion
            +-----------------------+                      |
-           |                       | Akustischer Alarm    |
-           v                       |                      |
-+---------------------+            | Optischer Alarm      |           
-| Alarmierung (Modul) |            +-------+--+-----------+
+           |                       | Alarmsirene          |
+           |                       |                      |
+           |                       | Alarmstufe           |    
+           |                       | Auslösungen          |    
+           |                       | Rückstellung         |    
+           v                       +-------+--+-----------+
++---------------------+                    |  |          
+| Alarmierung (Modul) |                    |  |
 |                     |                    |  |
 | Alarmierung         |                    |  |
 |                     |                    |  |
@@ -64,19 +67,19 @@ Als Auslöser kann auch das Modul Alarmierung genutzt werden.
 ### 5. Externe Aktion
 
 Das Modul Alarmsirene kann über eine externe Aktion geschaltet werden.  
-Nachfolgendes Beispiel löst einen akustischen Alarm aus.  
+Nachfolgendes Beispiel schaltet die Alarmsirene ein.  
 
-> ASIRHM_ToggleAcousticAlarm(12345, true);
+> ASIR_ToggleAlarmSiren(12345, true);
 
 ### 6. PHP-Befehlsreferenz
 
-#### 6.1 Akustischer Alarm
+#### 6.1 Alarmsirene schalten
 
 ```
-boolean ASIRHM_ToggleAcousticAlarm(integer INSTANCE_ID, boolean STATE);
+ASIR_ToggleAlarmSiren(integer INSTANCE_ID, boolean STATE);
 ```
 
-Konnte der Befehl erfolgreich ausgeführt werden, liefert er als Ergebnis **TRUE**, andernfalls **FALSE**.
+Der Befehl liefert keinen Rückgabewert.
 
 | Parameter     | Wert  | Bezeichnung    |
 |---------------|-------|----------------|
@@ -84,26 +87,5 @@ Konnte der Befehl erfolgreich ausgeführt werden, liefert er als Ergebnis **TRUE
 | `STATE`       | false | Aus            |
 |               | true  | An             |
 
-Beispiel:  
-> ASIRHM_ToggleAcousticAlarm(12345, false);
-
----
-
-#### 6.2 Optischer Alarm
-
-```
-boolean ASIRHM_ToggleOpticalAlarm(integer INSTANCE_ID, boolean STATE);
-```
-
-Konnte der Befehl erfolgreich ausgeführt werden, liefert er als Ergebnis **TRUE**, andernfalls **FALSE**.
-
-| Parameter     | Wert  | Beschreibung   |
-|---------------|-------|----------------|
-| `INSTANCE_ID` |       | ID der Instanz |
-| `STATE`       | false | Aus            |
-|               | true  | An             |
-
 Beispiel:
-> ASIRHM_ToggleOpticalAlarm(12345, false);
-
----
+> ASIR_ToggleAlarmSiren(12345, false);  
