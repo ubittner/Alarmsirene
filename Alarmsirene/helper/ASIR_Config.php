@@ -548,7 +548,7 @@ trait ASIR_Config
                         [
                             'caption' => 'Modus',
                             'name'    => 'SignalingMode',
-                            'width'   => '200px',
+                            'width'   => '300px',
                             'add'     => 0,
                             'edit'    => [
                                 'type'    => 'Select',

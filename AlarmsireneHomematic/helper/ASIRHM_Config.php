@@ -753,7 +753,7 @@ trait ASIRHM_Config
                         [
                             'caption' => 'Modus',
                             'name'    => 'SignalingMode',
-                            'width'   => '200px',
+                            'width'   => '400px',
                             'add'     => 0,
                             'edit'    => [
                                 'type'    => 'Select',
