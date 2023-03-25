@@ -145,6 +145,17 @@ Der Befehl liefert keinen Rückgabewert.
 | `DURATION_VALUE`           |                 | Wert Zeitdauer                         |                                                   |
 | 0 - n                      | DURATION_VALUE  | Wert                                   |                                                   |
 
+Empfohlene Werte für die einzelnen Alarmstufen:
+
+| Alarmstufe | Akustisches Signal | Optisches Signal |
+|------------|--------------------|------------------|
+| Voralarm   | 10                 | 3                |
+| Hauptalarm | 3                  | 3                |
+| Nachalarm  | 0                  | 1                |
+| Panikalarm | 3                  | 3                |
+| Unscharf   | 16                 | 2                |
+| Scharf     | 17                 | 3                |
+
 Nachfolgendes Beispiel löst einen akustischen und optischen Alarm für 60 Sekunden aus.
 
 Beispiel:  
