@@ -152,7 +152,6 @@ class AlarmsireneHomematicIP extends IPSModule
 
         $this->RegisterTimer('StartAutomaticDeactivation', 0, self::MODULE_PREFIX . '_StartAutomaticDeactivation(' . $this->InstanceID . ');');
         $this->RegisterTimer('StopAutomaticDeactivation', 0, self::MODULE_PREFIX . '_StopAutomaticDeactivation(' . $this->InstanceID . ',);');
-        //$this->RegisterTimer('CheckDeviceState', 0, self::MODULE_PREFIX . '_CheckDeviceState(' . $this->InstanceID . ',);');
         $this->RegisterTimer('CheckNextAlarmLevel', 0, self::MODULE_PREFIX . '_CheckNextAlarmLevel(' . $this->InstanceID . ');');
         $this->RegisterTimer('ResetSignallingAmount', 0, self::MODULE_PREFIX . '_ResetSignallingAmount(' . $this->InstanceID . ');');
     }
