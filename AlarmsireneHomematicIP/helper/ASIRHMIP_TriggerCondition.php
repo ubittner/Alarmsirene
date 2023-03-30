@@ -101,7 +101,12 @@ trait ASIRHMIP_TriggerCondition
                                             //Debug and log text
                                             $text = 'Die Alarmsirene wurde benutzerdefiniert geschaltet.';
                                             $this->SendDebug(__FUNCTION__, $text, 0);
-                                            $logText = date('d.m.Y, H:i:s') . ', ' . $this->ReadPropertyString('Location') . ', Alarmsirene, ' . $text . ' (ID ' . $this->InstanceID . ')';
+                                            $location = $this->ReadPropertyString('Location');
+                                            if ($location == '') {
+                                                $logText = date('d.m.Y, H:i:s') . ', ' . $text . ' (ID ' . $this->InstanceID . ')';
+                                            } else {
+                                                $logText = date('d.m.Y, H:i:s') . ', ' . $this->ReadPropertyString('Location') . ', Alarmsirene, ' . $text . ' (ID ' . $this->InstanceID . ')';
+                                            }
                                             $this->UpdateAlarmProtocol($logText, 0);
                                         }
                                         break;
