@@ -244,6 +244,7 @@ trait ASIR_Signaling
         //Get values
         $alarmSiren = $this->GetValue('AlarmSiren');
         $alarmLevel = $this->GetValue('AlarmLevel');
+        $location = $this->ReadPropertyString('Location');
         switch ($AlarmLevel) {
             case 1: //Pre alarm
                 //Check conditions
@@ -327,7 +328,11 @@ trait ASIR_Signaling
                 $text = 'Der Voralarm wurde eingeschaltet.';
                 $this->SendDebug(__FUNCTION__, $text, 0);
                 if (!$alarmSiren) {
-                    $logText = date('d.m.Y, H:i:s') . ', ' . $this->ReadPropertyString('Location') . ', Alarmsirene, ' . $text . ' (ID ' . $this->InstanceID . ')';
+                    if ($location == '') {
+                        $logText = date('d.m.Y, H:i:s') . ', ' . $text . ' (ID ' . $this->InstanceID . ')';
+                    } else {
+                        $logText = date('d.m.Y, H:i:s') . ', ' . $this->ReadPropertyString('Location') . ', Alarmsirene, ' . $text . ' (ID ' . $this->InstanceID . ')';
+                    }
                     $this->UpdateAlarmProtocol($logText, 0);
                 }
                 break;
@@ -383,7 +388,11 @@ trait ASIR_Signaling
                 //Log text
                 $text = 'Der Hauptalarm wurde eingeschaltet.';
                 $this->SendDebug(__FUNCTION__, $text, 0);
-                $logText = date('d.m.Y, H:i:s') . ', ' . $this->ReadPropertyString('Location') . ', Alarmsirene, ' . $text . ' (ID ' . $this->InstanceID . ')';
+                if ($location == '') {
+                    $logText = date('d.m.Y, H:i:s') . ', ' . $text . ' (ID ' . $this->InstanceID . ')';
+                } else {
+                    $logText = date('d.m.Y, H:i:s') . ', ' . $this->ReadPropertyString('Location') . ', Alarmsirene, ' . $text . ' (ID ' . $this->InstanceID . ')';
+                }
                 $this->UpdateAlarmProtocol($logText, 0);
                 break;
 
@@ -410,7 +419,11 @@ trait ASIR_Signaling
                 //Log text
                 $text = 'Der Nachalarm wurde eingeschaltet.';
                 $this->SendDebug(__FUNCTION__, $text, 0);
-                $logText = date('d.m.Y, H:i:s') . ', ' . $this->ReadPropertyString('Location') . ', Alarmsirene, ' . $text . ' (ID ' . $this->InstanceID . ')';
+                if ($location == '') {
+                    $logText = date('d.m.Y, H:i:s') . ', ' . $text . ' (ID ' . $this->InstanceID . ')';
+                } else {
+                    $logText = date('d.m.Y, H:i:s') . ', ' . $this->ReadPropertyString('Location') . ', Alarmsirene, ' . $text . ' (ID ' . $this->InstanceID . ')';
+                }
                 $this->UpdateAlarmProtocol($logText, 0);
                 break;
 
@@ -466,7 +479,11 @@ trait ASIR_Signaling
                 $text = 'Der Panikalarm wurde eingeschaltet.';
                 $this->SendDebug(__FUNCTION__, $text, 0);
                 if (!$alarmSiren) {
-                    $logText = date('d.m.Y, H:i:s') . ', ' . $this->ReadPropertyString('Location') . ', Alarmsirene, ' . $text . ' (ID ' . $this->InstanceID . ')';
+                    if ($location == '') {
+                        $logText = date('d.m.Y, H:i:s') . ', ' . $text . ' (ID ' . $this->InstanceID . ')';
+                    } else {
+                        $logText = date('d.m.Y, H:i:s') . ', ' . $this->ReadPropertyString('Location') . ', Alarmsirene, ' . $text . ' (ID ' . $this->InstanceID . ')';
+                    }
                     $this->UpdateAlarmProtocol($logText, 0);
                 }
                 break;
@@ -486,7 +503,11 @@ trait ASIR_Signaling
                 $text = 'Die Alarmsirene wurde ausgeschaltet.';
                 $this->SendDebug(__FUNCTION__, $text, 0);
                 if ($alarmSiren) {
-                    $logText = date('d.m.Y, H:i:s') . ', ' . $this->ReadPropertyString('Location') . ', Alarmsirene, ' . $text . ' (ID ' . $this->InstanceID . ')';
+                    if ($location == '') {
+                        $logText = date('d.m.Y, H:i:s') . ', ' . $text . ' (ID ' . $this->InstanceID . ')';
+                    } else {
+                        $logText = date('d.m.Y, H:i:s') . ', ' . $this->ReadPropertyString('Location') . ', Alarmsirene, ' . $text . ' (ID ' . $this->InstanceID . ')';
+                    }
                     $this->UpdateAlarmProtocol($logText, 0);
                 }
         }
@@ -524,7 +545,13 @@ trait ASIR_Signaling
                 $text = 'Abbruch, die maximale Anzahl der Auslösungen wurde bereits erreicht!';
                 $this->SendDebug(__FUNCTION__, $text, 0);
                 $this->LogMessage('ID ' . $this->InstanceID . ', ' . __FUNCTION__ . ', ' . $text, KL_WARNING);
-                $this->UpdateAlarmProtocol(date('d.m.Y, H:i:s') . ', ' . $this->ReadPropertyString('Location') . ', Alarmsirene, ' . $text . ' (ID ' . $this->InstanceID . ')', 0);
+                $location = $this->ReadPropertyString('Location');
+                if ($location == '') {
+                    $logText = date('d.m.Y, H:i:s') . ', ' . $text . ' (ID ' . $this->InstanceID . ')';
+                } else {
+                    $logText = date('d.m.Y, H:i:s') . ', ' . $this->ReadPropertyString('Location') . ', Alarmsirene, ' . $text . ' (ID ' . $this->InstanceID . ')';
+                }
+                $this->UpdateAlarmProtocol($logText, 0);
                 return false;
             }
         }
