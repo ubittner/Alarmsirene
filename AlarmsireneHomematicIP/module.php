@@ -26,6 +26,8 @@ class AlarmsireneHomematicIP extends IPSModule
     use ASIRHMIP_TriggerCondition;
 
     //Constants
+    private const LIBRARY_GUID = '{FAA4CD97-9BA5-6415-C57C-EB2BD5B1E143}';
+    private const MODULE_GUID = '{C2E1BF4E-FB45-9023-85F0-5C80BCE99D45}';
     private const MODULE_NAME = 'Alarmsirene Homematic IP';
     private const MODULE_PREFIX = 'ASIRHMIP';
     private const MODULE_VERSION = '7.0-3, 25.03.2023';
@@ -191,7 +193,7 @@ class AlarmsireneHomematicIP extends IPSModule
 
         foreach ($names as $name) {
             $id = $this->ReadPropertyInteger($name['propertyName']);
-            if ($id > 1 && @IPS_ObjectExists($id)) { //0 = main category, 1 = none
+            if ($id > 1 && @IPS_ObjectExists($id)) {
                 $this->RegisterReference($id);
                 if ($name['useUpdate']) {
                     $this->RegisterMessage($id, VM_UPDATE);
@@ -210,7 +212,7 @@ class AlarmsireneHomematicIP extends IPSModule
                 if (array_key_exists(0, $primaryCondition)) {
                     if (array_key_exists(0, $primaryCondition[0]['rules']['variable'])) {
                         $id = $primaryCondition[0]['rules']['variable'][0]['variableID'];
-                        if ($id > 1 && @IPS_ObjectExists($id)) { //0 = main category, 1 = none
+                        if ($id > 1 && @IPS_ObjectExists($id)) {
                             $this->RegisterReference($id);
                             $this->RegisterMessage($id, VM_UPDATE);
                         }
@@ -226,7 +228,7 @@ class AlarmsireneHomematicIP extends IPSModule
                         foreach ($rules as $rule) {
                             if (array_key_exists('variableID', $rule)) {
                                 $id = $rule['variableID'];
-                                if ($id > 1 && @IPS_ObjectExists($id)) { //0 = main category, 1 = none
+                                if ($id > 1 && @IPS_ObjectExists($id)) {
                                     $this->RegisterReference($id);
                                 }
                             }
@@ -302,10 +304,12 @@ class AlarmsireneHomematicIP extends IPSModule
         $id = IPS_CreateInstance(self::ABLAUFSTEUERUNG_MODULE_GUID);
         if (is_int($id)) {
             IPS_SetName($id, 'Ablaufsteuerung');
-            echo 'Instanz mit der ID ' . $id . ' wurde erfolgreich erstellt!';
+            $infoText = 'Instanz mit der ID ' . $id . ' wurde erfolgreich erstellt!';
         } else {
-            echo 'Instanz konnte nicht erstellt werden!';
+            $infoText = 'Instanz konnte nicht erstellt werden!';
         }
+        $this->UpdateFormField('InfoMessage', 'visible', true);
+        $this->UpdateFormField('InfoMessageLabel', 'caption', $infoText);
     }
 
     public function CreateAlarmProtocolInstance(): void
@@ -313,10 +317,18 @@ class AlarmsireneHomematicIP extends IPSModule
         $id = @IPS_CreateInstance(self::ALARMPROTOCOL_MODULE_GUID);
         if (is_int($id)) {
             IPS_SetName($id, 'Alarmprotokoll');
-            echo 'Instanz mit der ID ' . $id . ' wurde erfolgreich erstellt!';
+            $infoText = 'Instanz mit der ID ' . $id . ' wurde erfolgreich erstellt!';
         } else {
-            echo 'Instanz konnte nicht erstellt werden!';
+            $infoText = 'Instanz konnte nicht erstellt werden!';
         }
+        $this->UpdateFormField('InfoMessage', 'visible', true);
+        $this->UpdateFormField('InfoMessageLabel', 'caption', $infoText);
+    }
+
+    public function UIShowMessage(string $Message): void
+    {
+        $this->UpdateFormField('InfoMessage', 'visible', true);
+        $this->UpdateFormField('InfoMessageLabel', 'caption', $Message);
     }
 
     #################### Request Action

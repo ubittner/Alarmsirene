@@ -19,7 +19,7 @@ Der Nutzer stimmt den o.a. Bedingungen, sowie den Lizenzbedingungen ausdrücklic
 5. [Externe Aktion](#5-externe-aktion)
 6. [PHP-Befehlsreferenz](#6-php-befehlsreferenz)
    1. [Alarmsirene schalten](#61-alarmsirene-schalten)
-   2. [Signalisierung auslösen](#62-alternative-ansteuerung)
+   2. [Signalisierung auslösen](#62-signalisierung-auslösen)
    3. [Alternative Ansteuerung](#63-alternative-ansteuerung)
 
 ### 1. Modulbeschreibung
@@ -72,13 +72,15 @@ Als Auslöser kann auch das Modul Alarmierung genutzt werden.
 Das Modul Alarmsirene kann über eine externe Aktion geschaltet werden.  
 Nachfolgendes Beispiel löst einen akustischen und optischen Alarm für 180 Sekunden aus.  
 
-> ASIRHMIP_ToggleAlarmSiren(12345, true);
+```php
+ASIRHMIP_ToggleAlarmSiren(12345, true);
+```
 
 ### 6. PHP-Befehlsreferenz
 
 #### 6.1 Alarmsirene schalten
 
-```
+```text
 ASIRHMIP_ToggleAlarmSiren(integer INSTANCE_ID, boolean STATE);
 ```
 
@@ -90,14 +92,16 @@ Der Befehl liefert keinen Rückgabewert.
 | `STATE`       | false | Aus            |
 |               | true  | An             |
 
-Beispiel:
-> ASIRHMIP_ToggleAlarmSiren(12345, false);
+**Beispiel**:
+```php
+ASIRHMIP_ToggleAlarmSiren(12345, false);
+```
 
 ---
 
 #### 6.2 Signalisierung auslösen
 
-```
+```text
 ASIRHMIP_ExecuteSignaling(integer INSTANCE_ID, integer ACOUSTIC_ALARM_SELECTION, integer OPTICAL_ALARM_SELECTION, integer DURATION_UNIT, integer DURATION_VALUE);
 ```
 
@@ -158,8 +162,10 @@ Empfohlene Werte für die einzelnen Alarmstufen:
 
 Nachfolgendes Beispiel löst einen akustischen und optischen Alarm für 60 Sekunden aus.
 
-Beispiel:  
-> ASIRHMIP_ExecuteSignaling(12345, 3, 2, 3, 60);
+**Beispiel**:  
+```php
+ASIRHMIP_ExecuteSignaling(12345, 3, 2, 3, 60);
+```
 
 ---
 
@@ -193,10 +199,12 @@ Konnte der jeweilige Befehl erfolgreich ausgeführt werden, liefert er als Ergeb
 
 Die Werte für **ACOUSTIC_ALARM_SELECTION**, **OPTICAL_ALARM_SELECTION**, **DURATION_UNIT** und **DURATION_VALUE** entnehmen Sie bitte der entsprechenden Tabelle.
 
-Beispiel:
-> HM_WriteValueInteger(12345, 'ACOUSTIC_ALARM_SELECTION', 1);  
-> HM_WriteValueInteger(12345, 'OPTICAL_ALARM_SELECTION', 2);  
-> HM_WriteValueInteger(12345, 'DURATION_UNIT', 0);  
-> HM_WriteValueInteger(12345, 'DURATION_VALUE', 180);
+**Beispiel**:
+```php
+HM_WriteValueInteger(12345, 'ACOUSTIC_ALARM_SELECTION', 1);  
+HM_WriteValueInteger(12345, 'OPTICAL_ALARM_SELECTION', 2);  
+HM_WriteValueInteger(12345, 'DURATION_UNIT', 0);  
+HM_WriteValueInteger(12345, 'DURATION_VALUE', 180);
+```
 
 ---

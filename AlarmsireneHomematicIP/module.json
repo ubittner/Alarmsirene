@@ -2,7 +2,7 @@
     "id": "{C2E1BF4E-FB45-9023-85F0-5C80BCE99D45}",
     "name": "AlarmsireneHomematicIP",
     "type": 3,
-    "vendor": "UB",
+    "vendor": "Ulrich Bittner",
     "aliases": [
         "Alarmsirene Homematic IP"
     ],

@@ -69,13 +69,15 @@ Als Auslöser kann auch das Modul Alarmierung genutzt werden.
 Das Modul Alarmsirene kann über eine externe Aktion geschaltet werden.  
 Nachfolgendes Beispiel schaltet die Alarmsirene ein.  
 
-> ASIR_ToggleAlarmSiren(12345, true);
+```php
+ASIR_ToggleAlarmSiren(12345, true);
+```
 
 ### 6. PHP-Befehlsreferenz
 
 #### 6.1 Alarmsirene schalten
 
-```
+```text
 ASIR_ToggleAlarmSiren(integer INSTANCE_ID, boolean STATE);
 ```
 
@@ -87,5 +89,9 @@ Der Befehl liefert keinen Rückgabewert.
 | `STATE`       | false | Aus            |
 |               | true  | An             |
 
-Beispiel:
-> ASIR_ToggleAlarmSiren(12345, false);  
+**Beispiel**:
+```php
+ASIR_ToggleAlarmSiren(12345, false);
+```
+
+---

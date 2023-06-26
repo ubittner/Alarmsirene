@@ -92,13 +92,15 @@ Als Auslöser kann auch das Modul Alarmierung genutzt werden.
 Das Modul Alarmsirene kann über eine externe Aktion geschaltet werden.  
 Nachfolgendes Beispiel schaltet die Alarmsirene ein.
 
-> ASIRHM_ToggleAlarmSiren(12345, true);
+```php
+ASIRHM_ToggleAlarmSiren(12345, true);
+```
 
 ### 6. PHP-Befehlsreferenz
 
 #### 6.1 Alarmsirene schalten
 
-```
+```text
 ASIRHM_ToggleAlarmSiren(integer INSTANCE_ID, boolean STATE);
 ```
 
@@ -110,14 +112,16 @@ Der Befehl liefert keinen Rückgabewert.
 | `STATE`       | false | Aus            |
 |               | true  | An             |
 
-Beispiel:
-> ASIRHM_ToggleAlarmSiren(12345, false);
+**Beispiel**:
+```php
+ASIRHM_ToggleAlarmSiren(12345, false);
+```
 
 ---
 
 #### 6.2 Quittungston
 
-```
+```text
 ASIRHM_ExecuteToneAcknowledgement(integer INSTANCE_ID, integer VALUE);
 ```
 
@@ -131,8 +135,10 @@ Der Befehl liefert keinen Rückgabewert.
 |               | 2    | Alle Sensoren scharf (extern scharf) |
 |               | 3    | Alarm blockiert                      |
 
-Beispiel:
-> ASIRHM_ExecuteToneAcknowledgement(12345, 2);
+**Beispiel**:
+```php
+ASIRHM_ExecuteToneAcknowledgement(12345, 2);
+```
 
 ---
 
@@ -166,10 +172,14 @@ Konnte der jeweilige Befehl erfolgreich ausgeführt werden, liefert er als Ergeb
 
 Die Werte für **STATE** und **ARMSTATE** entnehmen Sie bitte der entsprechenden Tabelle.
 
-Beispiel Alarm (Ein):
-> HM_WriteValueBoolean(12345, 'STATE', true);  
+**Beispiel Alarm (Ein)**:
+```php
+HM_WriteValueBoolean(12345, 'STATE', true);  
+```
 
-Beispiel Quittungston (Alle Sensoren scharf):
-> HM_WriteValueInteger(98765, 'ARMSTATE', 2);
+**Beispiel Quittungston (Alle Sensoren scharf)**:
+```php
+HM_WriteValueInteger(98765, 'ARMSTATE', 2);
+```
 
 ---
