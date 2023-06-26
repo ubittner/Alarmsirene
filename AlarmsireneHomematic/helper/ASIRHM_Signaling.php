@@ -108,7 +108,7 @@ trait ASIRHM_Signaling
             }
         }
         $id = $this->ReadPropertyInteger('DeviceInstanceAcousticAlarm');
-        if ($id > 1 && @IPS_ObjectExists($id)) { //0 = main category, 1 = none
+        if ($id > 1 && @IPS_ObjectExists($id)) {
             switch ($this->ReadPropertyInteger('DeviceTypeAcousticAlarm')) {
                 case 1: //HM-Sec-Sir-WM
                 case 2: //HM-Sec-SFA-SM
@@ -116,7 +116,7 @@ trait ASIRHM_Signaling
                 case 4: //HM-LC-Sw2-FM
                     IPS_Sleep($this->ReadPropertyInteger('SwitchingDelayAcousticAlarm'));
                     $commandControl = $this->ReadPropertyInteger('CommandControl');
-                    if ($commandControl > 1 && @IPS_ObjectExists($commandControl)) { //0 = main category, 1 = none
+                    if ($commandControl > 1 && @IPS_ObjectExists($commandControl)) {
                         $commands = [];
                         $commands[] = '@HM_WriteValueBoolean(' . $id . ", 'STATE', " . $value . ');';
                         $this->SendDebug(__FUNCTION__, 'Befehl: ' . json_encode(json_encode($commands)), 0);
@@ -169,14 +169,14 @@ trait ASIRHM_Signaling
             }
         }
         $id = $this->ReadPropertyInteger('DeviceInstanceOpticalAlarm');
-        if ($id > 1 && @IPS_ObjectExists($id)) { //0 = main category, 1 = none
+        if ($id > 1 && @IPS_ObjectExists($id)) {
             switch ($this->ReadPropertyInteger('DeviceTypeOpticalAlarm')) {
                 case 1: //HM-Sec-SFA-SM
                 case 2: //HM-LC-Sw4-WM
                 case 3: //HM-LC-Sw2-FM
                     IPS_Sleep($this->ReadPropertyInteger('SwitchingDelayOpticalAlarm'));
                     $commandControl = $this->ReadPropertyInteger('CommandControl');
-                    if ($commandControl > 1 && @IPS_ObjectExists($commandControl)) { //0 = main category, 1 = none
+                    if ($commandControl > 1 && @IPS_ObjectExists($commandControl)) {
                         $commands = [];
                         $commands[] = '@HM_WriteValueBoolean(' . $id . ", 'STATE', " . $value . ');';
                         $this->SendDebug(__FUNCTION__, 'Befehl: ' . json_encode(json_encode($commands)), 0);
@@ -222,12 +222,12 @@ trait ASIRHM_Signaling
             return;
         }
         $id = $this->ReadPropertyInteger('DeviceInstanceToneAcknowledgement');
-        if ($id > 1 && @IPS_ObjectExists($id)) { //0 = main category, 1 = none
+        if ($id > 1 && @IPS_ObjectExists($id)) {
             $this->SetValue('ToneAcknowledgement', $Value);
             //HM-Sec-Sir-WM
             if ($this->ReadPropertyInteger('DeviceTypeToneAcknowledgement') == 1) {
                 $commandControl = $this->ReadPropertyInteger('CommandControl');
-                if ($commandControl > 1 && @IPS_ObjectExists($commandControl)) { //0 = main category, 1 = none
+                if ($commandControl > 1 && @IPS_ObjectExists($commandControl)) {
                     $commands = [];
                     $commands[] = '@HM_WriteValueInteger(' . $id . ", 'ARMSTATE', " . $Value . ');';
                     $this->SendDebug(__FUNCTION__, 'Befehl: ' . json_encode(json_encode($commands)), 0);

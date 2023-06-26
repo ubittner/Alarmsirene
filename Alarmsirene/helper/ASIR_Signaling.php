@@ -106,10 +106,10 @@ trait ASIR_Signaling
             }
         }
         $id = $this->ReadPropertyInteger('AcousticAlarm');
-        if ($id > 1 && @IPS_ObjectExists($id)) { //0 = main category, 1 = none
+        if ($id > 1 && @IPS_ObjectExists($id)) {
             IPS_Sleep($this->ReadPropertyInteger('SwitchingDelayAcousticAlarm'));
             $commandControl = $this->ReadPropertyInteger('CommandControl');
-            if ($commandControl > 1 && @IPS_ObjectExists($commandControl)) { //0 = main category, 1 = none
+            if ($commandControl > 1 && @IPS_ObjectExists($commandControl)) {
                 $commands = [];
                 $commands[] = '@RequestAction(' . $id . ', ' . $value . ');';
                 $this->SendDebug(__FUNCTION__, 'Befehl: ' . json_encode(json_encode($commands)), 0);
@@ -158,10 +158,10 @@ trait ASIR_Signaling
             }
         }
         $id = $this->ReadPropertyInteger('OpticalAlarm');
-        if ($id > 1 && @IPS_ObjectExists($id)) { //0 = main category, 1 = none
+        if ($id > 1 && @IPS_ObjectExists($id)) {
             IPS_Sleep($this->ReadPropertyInteger('SwitchingDelayOpticalAlarm'));
             $commandControl = $this->ReadPropertyInteger('CommandControl');
-            if ($commandControl > 1 && @IPS_ObjectExists($commandControl)) { //0 = main category, 1 = none
+            if ($commandControl > 1 && @IPS_ObjectExists($commandControl)) {
                 $commands = [];
                 $commands[] = '@RequestAction(' . $id . ', ' . $value . ');';
                 $this->SendDebug(__FUNCTION__, 'Befehl: ' . json_encode(json_encode($commands)), 0);

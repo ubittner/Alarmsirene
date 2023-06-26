@@ -135,7 +135,7 @@ trait ASIRHMIP_Signaling
         $this->SendDebug(__FUNCTION__, 'Einheit Zeitdauer: ' . $DurationUnit, 0);
         $this->SendDebug(__FUNCTION__, 'Wert Zeitdauer: ' . $DurationValue, 0);
         $id = $this->ReadPropertyInteger('DeviceInstance');
-        if ($id > 1 && @IPS_ObjectExists($id)) { //0 = main category, 1 = none
+        if ($id > 1 && @IPS_ObjectExists($id)) {
             $this->SetValue('AlarmSiren', $state);
             switch ($this->ReadPropertyInteger('DeviceType')) {
                 case 1: //HmIP-ASIR
