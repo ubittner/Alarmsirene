@@ -102,20 +102,20 @@ trait ASIR_Config
         //Configuration buttons
         $form['elements'][0] =
             [
-                'type' => 'RowLayout',
+                'type'  => 'RowLayout',
                 'items' => [
                     [
-                        'type' => 'Button',
+                        'type'    => 'Button',
                         'caption' => 'Konfiguration ausklappen',
                         'onClick' => self::MODULE_PREFIX . '_ExpandExpansionPanels($id, true);'
                     ],
                     [
-                        'type' => 'Button',
+                        'type'    => 'Button',
                         'caption' => 'Konfiguration einklappen',
                         'onClick' => self::MODULE_PREFIX . '_ExpandExpansionPanels($id, false);'
                     ],
                     [
-                        'type' => 'Button',
+                        'type'    => 'Button',
                         'caption' => 'Konfiguration neu laden',
                         'onClick' => self::MODULE_PREFIX . '_ReloadConfig($id);'
                     ]
@@ -126,40 +126,40 @@ trait ASIR_Config
         $library = IPS_GetLibrary(self::LIBRARY_GUID);
         $module = IPS_GetModule(self::MODULE_GUID);
         $form['elements'][] = [
-            'type' => 'ExpansionPanel',
-            'name' => 'Panel1',
+            'type'    => 'ExpansionPanel',
+            'name'    => 'Panel1',
             'caption' => 'Info',
-            'items' => [
+            'items'   => [
                 [
-                    'type' => 'Label',
-                    'name' => 'ModuleID',
+                    'type'    => 'Label',
+                    'name'    => 'ModuleID',
                     'caption' => "ID:\t\t\t" . $this->InstanceID
                 ],
                 [
-                    'type' => 'Label',
+                    'type'    => 'Label',
                     'caption' => "Modul:\t\t" . $module['ModuleName']
                 ],
                 [
-                    'type' => 'Label',
+                    'type'    => 'Label',
                     'caption' => "Präfix:\t\t" . $module['Prefix']
                 ],
                 [
-                    'type' => 'Label',
+                    'type'    => 'Label',
                     'caption' => "Version:\t\t" . $library['Version'] . '-' . $library['Build'] . ', ' . date('d.m.Y', $library['Date'])
                 ],
                 [
-                    'type' => 'Label',
+                    'type'    => 'Label',
                     'caption' => "Entwickler:\t" . $library['Author']
                 ],
                 [
-                    'type' => 'Label',
+                    'type'    => 'Label',
                     'caption' => ' '
                 ],
                 [
-                    'type' => 'ValidationTextBox',
-                    'name' => 'Note',
+                    'type'    => 'ValidationTextBox',
+                    'name'    => 'Note',
                     'caption' => 'Notiz',
-                    'width' => '600px'
+                    'width'   => '600px'
                 ]
             ]
         ];
@@ -180,228 +180,227 @@ trait ASIR_Config
         }
 
         $form['elements'][] = [
-            'type' => 'ExpansionPanel',
-            'name' => 'Panel2',
+            'type'    => 'ExpansionPanel',
+            'name'    => 'Panel2',
             'caption' => 'Alarmsirene',
-            'items' => [
+            'items'   => [
                 [
-                    'type' => 'Label',
+                    'type'    => 'Label',
                     'caption' => 'Akustischer Alarm',
-                    'bold' => true,
-                    'italic' => true
+                    'bold'    => true,
+                    'italic'  => true
                 ],
                 [
-                    'type' => 'RowLayout',
+                    'type'  => 'RowLayout',
                     'items' => [
                         [
-                            'type' => 'SelectVariable',
-                            'name' => 'AcousticAlarm',
-                            'caption' => 'Variable',
-                            'width' => '600px',
+                            'type'     => 'SelectVariable',
+                            'name'     => 'AcousticAlarm',
+                            'caption'  => 'Variable',
+                            'width'    => '600px',
                             'onChange' => self::MODULE_PREFIX . '_ModifyButton($id, "AcousticAlarmConfigurationButton", "ID " . $AcousticAlarm . " bearbeiten", $AcousticAlarm);'
                         ],
                         [
-                            'type' => 'OpenObjectButton',
-                            'name' => 'AcousticAlarmConfigurationButton',
-                            'caption' => 'ID ' . $acousticAlarm . ' bearbeiten',
-                            'visible' => $enableAcousticAlarmButton,
+                            'type'     => 'OpenObjectButton',
+                            'name'     => 'AcousticAlarmConfigurationButton',
+                            'caption'  => 'ID ' . $acousticAlarm . ' bearbeiten',
+                            'visible'  => $enableAcousticAlarmButton,
                             'objectID' => $acousticAlarm
                         ]
                     ]
                 ],
                 [
-                    'type' => 'NumberSpinner',
-                    'name' => 'SwitchingDelayAcousticAlarm',
+                    'type'    => 'NumberSpinner',
+                    'name'    => 'SwitchingDelayAcousticAlarm',
                     'caption' => 'Schaltverzögerung',
                     'minimum' => 0,
-                    'suffix' => 'Millisekunden'
+                    'suffix'  => 'Millisekunden'
                 ],
                 [
-                    'type' => 'Label',
+                    'type'    => 'Label',
                     'caption' => ' '
                 ],
                 [
-                    'type' => 'Label',
+                    'type'    => 'Label',
                     'caption' => 'Optischer Alarm',
-                    'bold' => true,
-                    'italic' => true
+                    'bold'    => true,
+                    'italic'  => true
                 ],
                 [
-                    'type' => 'RowLayout',
+                    'type'  => 'RowLayout',
                     'items' => [
                         [
-                            'type' => 'SelectVariable',
-                            'name' => 'OpticalAlarm',
-                            'caption' => 'Variable',
-                            'width' => '600px',
+                            'type'     => 'SelectVariable',
+                            'name'     => 'OpticalAlarm',
+                            'caption'  => 'Variable',
+                            'width'    => '600px',
                             'onChange' => self::MODULE_PREFIX . '_ModifyButton($id, "OpticalAlarmConfigurationButton", "ID " . $OpticalAlarm . " bearbeiten", $OpticalAlarm);'
                         ],
                         [
-                            'type' => 'OpenObjectButton',
-                            'name' => 'OpticalAlarmConfigurationButton',
-                            'caption' => 'ID ' . $opticalAlarm . ' bearbeiten',
-                            'visible' => $enableOpticalAlarmButton,
+                            'type'     => 'OpenObjectButton',
+                            'name'     => 'OpticalAlarmConfigurationButton',
+                            'caption'  => 'ID ' . $opticalAlarm . ' bearbeiten',
+                            'visible'  => $enableOpticalAlarmButton,
                             'objectID' => $opticalAlarm
                         ]
                     ]
                 ],
                 [
-                    'type' => 'NumberSpinner',
-                    'name' => 'SwitchingDelayOpticalAlarm',
+                    'type'    => 'NumberSpinner',
+                    'name'    => 'SwitchingDelayOpticalAlarm',
                     'caption' => 'Schaltverzögerung',
                     'minimum' => 0,
-                    'suffix' => 'Millisekunden'
+                    'suffix'  => 'Millisekunden'
                 ]
             ]
         ];
 
-
         ##### Element: Alarm levels
 
         $form['elements'][] = [
-            'type' => 'ExpansionPanel',
-            'name' => 'Panel3',
+            'type'    => 'ExpansionPanel',
+            'name'    => 'Panel3',
             'caption' => 'Alarmstufen',
-            'items' => [
+            'items'   => [
                 [
-                    'type' => 'Label',
+                    'type'    => 'Label',
                     'caption' => 'Voralarm',
-                    'bold' => true,
-                    'italic' => true
+                    'bold'    => true,
+                    'italic'  => true
                 ],
                 [
-                    'type' => 'NumberSpinner',
-                    'name' => 'PreAlarmDuration',
+                    'type'    => 'NumberSpinner',
+                    'name'    => 'PreAlarmDuration',
                     'caption' => 'Dauer',
-                    'suffix' => 'Sekunden'
+                    'suffix'  => 'Sekunden'
                 ],
                 [
-                    'type' => 'CheckBox',
-                    'name' => 'UsePreAlarmAcousticAlarm',
+                    'type'    => 'CheckBox',
+                    'name'    => 'UsePreAlarmAcousticAlarm',
                     'caption' => 'Akustischer Alarm'
                 ],
                 [
-                    'type' => 'NumberSpinner',
-                    'name' => 'PreAlarmAcousticDuration',
+                    'type'    => 'NumberSpinner',
+                    'name'    => 'PreAlarmAcousticDuration',
                     'caption' => 'Akustische Alarmdauer',
-                    'suffix' => 'Sekunden'
+                    'suffix'  => 'Sekunden'
                 ],
                 [
-                    'type' => 'CheckBox',
-                    'name' => 'UsePreAlarmOpticalAlarm',
+                    'type'    => 'CheckBox',
+                    'name'    => 'UsePreAlarmOpticalAlarm',
                     'caption' => 'Optischer Alarm'
                 ],
                 [
-                    'type' => 'NumberSpinner',
-                    'name' => 'PreAlarmOpticalDuration',
+                    'type'    => 'NumberSpinner',
+                    'name'    => 'PreAlarmOpticalDuration',
                     'caption' => 'Optische Alarmdauer',
-                    'suffix' => 'Sekunden'
+                    'suffix'  => 'Sekunden'
                 ],
                 [
-                    'type' => 'Label',
+                    'type'    => 'Label',
                     'caption' => ' '
                 ],
                 [
-                    'type' => 'Label',
+                    'type'    => 'Label',
                     'caption' => 'Hauptalarm',
-                    'bold' => true,
-                    'italic' => true
+                    'bold'    => true,
+                    'italic'  => true
                 ],
                 [
-                    'type' => 'NumberSpinner',
-                    'name' => 'MainAlarmDuration',
+                    'type'    => 'NumberSpinner',
+                    'name'    => 'MainAlarmDuration',
                     'caption' => 'Dauer',
-                    'suffix' => 'Sekunden'
+                    'suffix'  => 'Sekunden'
                 ],
                 [
-                    'type' => 'NumberSpinner',
-                    'name' => 'MaximumSignallingAmountAcousticAlarm',
+                    'type'    => 'NumberSpinner',
+                    'name'    => 'MaximumSignallingAmountAcousticAlarm',
                     'caption' => 'Maximale Auslösungen',
                     'minimum' => 0,
-                    'suffix' => 'Anzahl'
+                    'suffix'  => 'Anzahl'
                 ],
                 [
-                    'type' => 'CheckBox',
-                    'name' => 'UseMainAlarmAcousticAlarm',
+                    'type'    => 'CheckBox',
+                    'name'    => 'UseMainAlarmAcousticAlarm',
                     'caption' => 'Akustischer Alarm'
                 ],
                 [
-                    'type' => 'NumberSpinner',
-                    'name' => 'MainAlarmAcousticDuration',
+                    'type'    => 'NumberSpinner',
+                    'name'    => 'MainAlarmAcousticDuration',
                     'caption' => 'Akustische Alarmdauer',
-                    'suffix' => 'Sekunden'
+                    'suffix'  => 'Sekunden'
                 ],
                 [
-                    'type' => 'CheckBox',
-                    'name' => 'UseMainAlarmOpticalAlarm',
+                    'type'    => 'CheckBox',
+                    'name'    => 'UseMainAlarmOpticalAlarm',
                     'caption' => 'Optischer Alarm'
                 ],
                 [
-                    'type' => 'NumberSpinner',
-                    'name' => 'MainAlarmOpticalDuration',
+                    'type'    => 'NumberSpinner',
+                    'name'    => 'MainAlarmOpticalDuration',
                     'caption' => 'Optische Alarmdauer',
-                    'suffix' => 'Sekunden'
+                    'suffix'  => 'Sekunden'
                 ],
                 [
-                    'type' => 'Label',
+                    'type'    => 'Label',
                     'caption' => ' '
                 ],
                 [
-                    'type' => 'Label',
+                    'type'    => 'Label',
                     'caption' => 'Nachalarm',
-                    'bold' => true,
-                    'italic' => true
+                    'bold'    => true,
+                    'italic'  => true
                 ],
                 [
-                    'type' => 'CheckBox',
-                    'name' => 'UsePostAlarmOpticalAlarm',
+                    'type'    => 'CheckBox',
+                    'name'    => 'UsePostAlarmOpticalAlarm',
                     'caption' => 'Optischer Alarm'
                 ],
                 [
-                    'type' => 'NumberSpinner',
-                    'name' => 'PostAlarmOpticalDuration',
+                    'type'    => 'NumberSpinner',
+                    'name'    => 'PostAlarmOpticalDuration',
                     'caption' => 'Optische Alarmdauer',
                     'minimum' => 0,
                     'maximum' => 1800,
-                    'suffix' => 'Sekunden'
+                    'suffix'  => 'Sekunden'
                 ],
                 [
-                    'type' => 'Label',
+                    'type'    => 'Label',
                     'caption' => ' '
                 ],
                 [
-                    'type' => 'Label',
+                    'type'    => 'Label',
                     'caption' => 'Panikalarm',
-                    'bold' => true,
-                    'italic' => true
+                    'bold'    => true,
+                    'italic'  => true
                 ],
                 [
-                    'type' => 'NumberSpinner',
-                    'name' => 'PanicAlarmDuration',
+                    'type'    => 'NumberSpinner',
+                    'name'    => 'PanicAlarmDuration',
                     'caption' => 'Dauer',
-                    'suffix' => 'Sekunden'
+                    'suffix'  => 'Sekunden'
                 ],
                 [
-                    'type' => 'CheckBox',
-                    'name' => 'UsePanicAlarmAcousticAlarm',
+                    'type'    => 'CheckBox',
+                    'name'    => 'UsePanicAlarmAcousticAlarm',
                     'caption' => 'Akustischer Alarm'
                 ],
                 [
-                    'type' => 'NumberSpinner',
-                    'name' => 'PanicAlarmAcousticDuration',
+                    'type'    => 'NumberSpinner',
+                    'name'    => 'PanicAlarmAcousticDuration',
                     'caption' => 'Akustische Alarmdauer',
-                    'suffix' => 'Sekunden'
+                    'suffix'  => 'Sekunden'
                 ],
                 [
-                    'type' => 'CheckBox',
-                    'name' => 'UsePanicAlarmOpticalAlarm',
+                    'type'    => 'CheckBox',
+                    'name'    => 'UsePanicAlarmOpticalAlarm',
                     'caption' => 'Optischer Alarm'
                 ],
                 [
-                    'type' => 'NumberSpinner',
-                    'name' => 'PanicAlarmOpticalDuration',
+                    'type'    => 'NumberSpinner',
+                    'name'    => 'PanicAlarmOpticalDuration',
                     'caption' => 'Optische Alarmdauer',
-                    'suffix' => 'Sekunden'
+                    'suffix'  => 'Sekunden'
                 ]
             ]
         ];
@@ -460,181 +459,181 @@ trait ASIR_Config
         }
 
         $form['elements'][] = [
-            'type' => 'ExpansionPanel',
-            'name' => 'Panel4',
+            'type'    => 'ExpansionPanel',
+            'name'    => 'Panel4',
             'caption' => 'Auslöser',
-            'items' => [
+            'items'   => [
                 [
-                    'type' => 'List',
-                    'name' => 'TriggerList',
-                    'caption' => 'Auslöser',
+                    'type'     => 'List',
+                    'name'     => 'TriggerList',
+                    'caption'  => 'Auslöser',
                     'rowCount' => 15,
-                    'add' => true,
-                    'delete' => true,
-                    'columns' => [
+                    'add'      => true,
+                    'delete'   => true,
+                    'columns'  => [
                         [
                             'caption' => 'Aktiviert',
-                            'name' => 'Use',
-                            'width' => '100px',
-                            'add' => true,
-                            'edit' => [
+                            'name'    => 'Use',
+                            'width'   => '100px',
+                            'add'     => true,
+                            'edit'    => [
                                 'type' => 'CheckBox'
                             ]
                         ],
                         [
-                            'name' => 'ActualStatus',
+                            'name'    => 'ActualStatus',
                             'caption' => 'Aktueller Status',
-                            'width' => '200px',
-                            'add' => ''
+                            'width'   => '200px',
+                            'add'     => ''
                         ],
                         [
                             'caption' => 'ID',
-                            'name' => 'ID',
+                            'name'    => 'ID',
                             'onClick' => self::MODULE_PREFIX . '_ModifyTriggerListButton($id, "TriggerListConfigurationButton", $TriggerList["PrimaryCondition"]);',
-                            'width' => '100px',
-                            'add' => ''
+                            'width'   => '100px',
+                            'add'     => ''
                         ],
                         [
                             'caption' => 'Bezeichnung',
-                            'name' => 'Designation',
+                            'name'    => 'Designation',
                             'onClick' => self::MODULE_PREFIX . '_ModifyTriggerListButton($id, "TriggerListConfigurationButton", $TriggerList["PrimaryCondition"]);',
-                            'width' => '400px',
-                            'add' => '',
-                            'edit' => [
+                            'width'   => '400px',
+                            'add'     => '',
+                            'edit'    => [
                                 'type' => 'ValidationTextBox'
                             ]
                         ],
                         [
                             'caption' => ' ',
-                            'name' => 'SpacerPrimaryCondition',
-                            'width' => '200px',
-                            'add' => '',
+                            'name'    => 'SpacerPrimaryCondition',
+                            'width'   => '200px',
+                            'add'     => '',
                             'visible' => false,
-                            'edit' => [
+                            'edit'    => [
                                 'type' => 'Label'
                             ]
                         ],
                         [
                             'caption' => 'Bedingung:',
-                            'name' => 'LabelPrimaryCondition',
-                            'width' => '200px',
-                            'add' => '',
+                            'name'    => 'LabelPrimaryCondition',
+                            'width'   => '200px',
+                            'add'     => '',
                             'visible' => false,
-                            'edit' => [
-                                'type' => 'Label',
+                            'edit'    => [
+                                'type'   => 'Label',
                                 'italic' => true,
-                                'bold' => true
+                                'bold'   => true
                             ]
                         ],
                         [
                             'caption' => 'Mehrfachauslösung',
-                            'name' => 'UseMultipleAlerts',
-                            'width' => '200px',
-                            'add' => false,
-                            'edit' => [
+                            'name'    => 'UseMultipleAlerts',
+                            'width'   => '200px',
+                            'add'     => false,
+                            'edit'    => [
                                 'type' => 'CheckBox'
                             ]
                         ],
                         [
                             'caption' => ' ',
-                            'name' => 'PrimaryCondition',
-                            'width' => '200px',
-                            'add' => '',
+                            'name'    => 'PrimaryCondition',
+                            'width'   => '200px',
+                            'add'     => '',
                             'visible' => false,
-                            'edit' => [
+                            'edit'    => [
                                 'type' => 'SelectCondition'
                             ]
                         ],
                         [
                             'caption' => ' ',
-                            'name' => 'SpacerSecondaryCondition',
-                            'width' => '200px',
-                            'add' => '',
+                            'name'    => 'SpacerSecondaryCondition',
+                            'width'   => '200px',
+                            'add'     => '',
                             'visible' => false,
-                            'edit' => [
+                            'edit'    => [
                                 'type' => 'Label'
                             ]
                         ],
                         [
                             'caption' => 'Weitere Bedingung(en):',
-                            'name' => 'LabelSecondaryCondition',
-                            'width' => '200px',
-                            'add' => '',
+                            'name'    => 'LabelSecondaryCondition',
+                            'width'   => '200px',
+                            'add'     => '',
                             'visible' => false,
-                            'edit' => [
-                                'type' => 'Label',
+                            'edit'    => [
+                                'type'   => 'Label',
                                 'italic' => true,
-                                'bold' => true
+                                'bold'   => true
                             ]
                         ],
                         [
                             'caption' => ' ',
-                            'name' => 'SecondaryCondition',
-                            'width' => '200px',
-                            'add' => '',
+                            'name'    => 'SecondaryCondition',
+                            'width'   => '200px',
+                            'add'     => '',
                             'visible' => false,
-                            'edit' => [
-                                'type' => 'SelectCondition',
+                            'edit'    => [
+                                'type'  => 'SelectCondition',
                                 'multi' => true
                             ]
                         ],
                         [
                             'caption' => ' ',
-                            'name' => 'SpacerSignaling',
-                            'width' => '200px',
-                            'add' => '',
+                            'name'    => 'SpacerSignaling',
+                            'width'   => '200px',
+                            'add'     => '',
                             'visible' => false,
-                            'edit' => [
+                            'edit'    => [
                                 'type' => 'Label'
                             ]
                         ],
                         [
                             'caption' => 'Signalisierung:',
-                            'name' => 'LabelSignaling',
-                            'width' => '200px',
-                            'add' => '',
+                            'name'    => 'LabelSignaling',
+                            'width'   => '200px',
+                            'add'     => '',
                             'visible' => false,
-                            'edit' => [
-                                'type' => 'Label',
+                            'edit'    => [
+                                'type'   => 'Label',
                                 'italic' => true,
-                                'bold' => true
+                                'bold'   => true
                             ]
                         ],
                         [
                             'caption' => 'Modus',
-                            'name' => 'SignalingMode',
-                            'width' => '300px',
-                            'add' => 0,
-                            'edit' => [
-                                'type' => 'Select',
+                            'name'    => 'SignalingMode',
+                            'width'   => '300px',
+                            'add'     => 0,
+                            'edit'    => [
+                                'type'    => 'Select',
                                 'options' => [
                                     [
                                         'caption' => 'Keine Funktion',
-                                        'value' => 0
+                                        'value'   => 0
                                     ],
                                     [
                                         'caption' => 'Alarmsirene Aus',
-                                        'value' => 1
+                                        'value'   => 1
                                     ],
                                     [
                                         'caption' => 'Alarmsirene An (Alarmstufen)',
-                                        'value' => 2
+                                        'value'   => 2
                                     ],
                                     [
                                         'caption' => 'Voralarm',
-                                        'value' => 3
+                                        'value'   => 3
                                     ],
                                     [
                                         'caption' => 'Hauptalarm',
-                                        'value' => 4
+                                        'value'   => 4
                                     ],
                                     [
                                         'caption' => 'Nachalarm',
-                                        'value' => 5
+                                        'value'   => 5
                                     ],
                                     [
                                         'caption' => 'Panikalarm',
-                                        'value' => 6
+                                        'value'   => 6
                                     ]
                                 ]
                             ]
@@ -643,10 +642,10 @@ trait ASIR_Config
                     'values' => $triggerListValues,
                 ],
                 [
-                    'type' => 'OpenObjectButton',
-                    'name' => 'TriggerListConfigurationButton',
-                    'caption' => 'Bearbeiten',
-                    'visible' => false,
+                    'type'     => 'OpenObjectButton',
+                    'name'     => 'TriggerListConfigurationButton',
+                    'caption'  => 'Bearbeiten',
+                    'visible'  => false,
                     'objectID' => 0
                 ]
             ]
@@ -660,30 +659,30 @@ trait ASIR_Config
             $enableButton = true;
         }
         $form['elements'][] = [
-            'type' => 'ExpansionPanel',
-            'name' => 'Panel5',
+            'type'    => 'ExpansionPanel',
+            'name'    => 'Panel5',
             'caption' => 'Ablaufsteuerung',
-            'items' => [
+            'items'   => [
                 [
-                    'type' => 'RowLayout',
+                    'type'  => 'RowLayout',
                     'items' => [
                         [
-                            'type' => 'SelectModule',
-                            'name' => 'CommandControl',
-                            'caption' => 'Instanz',
+                            'type'     => 'SelectModule',
+                            'name'     => 'CommandControl',
+                            'caption'  => 'Instanz',
                             'moduleID' => self::ABLAUFSTEUERUNG_MODULE_GUID,
-                            'width' => '600px',
+                            'width'    => '600px',
                             'onChange' => self::MODULE_PREFIX . '_ModifyButton($id, "CommandControlConfigurationButton", "ID " . $CommandControl . " konfigurieren", $CommandControl);'
                         ],
                         [
-                            'type' => 'OpenObjectButton',
-                            'caption' => 'ID ' . $id . ' konfigurieren',
-                            'name' => 'CommandControlConfigurationButton',
-                            'visible' => $enableButton,
+                            'type'     => 'OpenObjectButton',
+                            'caption'  => 'ID ' . $id . ' konfigurieren',
+                            'name'     => 'CommandControlConfigurationButton',
+                            'visible'  => $enableButton,
                             'objectID' => $id
                         ],
                         [
-                            'type' => 'Button',
+                            'type'    => 'Button',
                             'caption' => 'Neue Instanz erstellen',
                             'onClick' => self::MODULE_PREFIX . '_CreateCommandControlInstance($id);'
                         ]
@@ -700,40 +699,40 @@ trait ASIR_Config
             $enableButton = true;
         }
         $form['elements'][] = [
-            'type' => 'ExpansionPanel',
-            'name' => 'Panel6',
+            'type'    => 'ExpansionPanel',
+            'name'    => 'Panel6',
             'caption' => 'Alarmprotokoll',
-            'items' => [
+            'items'   => [
                 [
-                    'type' => 'RowLayout',
+                    'type'  => 'RowLayout',
                     'items' => [
                         [
-                            'type' => 'SelectModule',
-                            'name' => 'AlarmProtocol',
-                            'caption' => 'Instanz',
+                            'type'     => 'SelectModule',
+                            'name'     => 'AlarmProtocol',
+                            'caption'  => 'Instanz',
                             'moduleID' => self::ALARMPROTOCOL_MODULE_GUID,
-                            'width' => '600px',
+                            'width'    => '600px',
                             'onChange' => self::MODULE_PREFIX . '_ModifyButton($id, "AlarmProtocolConfigurationButton", "ID " . $AlarmProtocol . " konfigurieren", $AlarmProtocol);'
                         ],
                         [
-                            'type' => 'OpenObjectButton',
-                            'caption' => 'ID ' . $id . ' konfigurieren',
-                            'name' => 'AlarmProtocolConfigurationButton',
-                            'visible' => $enableButton,
+                            'type'     => 'OpenObjectButton',
+                            'caption'  => 'ID ' . $id . ' konfigurieren',
+                            'name'     => 'AlarmProtocolConfigurationButton',
+                            'visible'  => $enableButton,
                             'objectID' => $id
                         ],
                         [
-                            'type' => 'Button',
+                            'type'    => 'Button',
                             'caption' => 'Neue Instanz erstellen',
                             'onClick' => self::MODULE_PREFIX . '_CreateAlarmProtocolInstance($id);'
                         ]
                     ]
                 ],
                 [
-                    'type' => 'ValidationTextBox',
-                    'name' => 'Location',
+                    'type'    => 'ValidationTextBox',
+                    'name'    => 'Location',
                     'caption' => 'Standortbezeichnung (z.B. Musterstraße 1)',
-                    'width' => '600px'
+                    'width'   => '600px'
                 ]
             ]
         ];
@@ -741,23 +740,23 @@ trait ASIR_Config
         ##### Element: Automatic deactivation
 
         $form['elements'][] = [
-            'type' => 'ExpansionPanel',
-            'name' => 'Panel7',
+            'type'    => 'ExpansionPanel',
+            'name'    => 'Panel7',
             'caption' => 'Deaktivierung',
-            'items' => [
+            'items'   => [
                 [
-                    'type' => 'CheckBox',
-                    'name' => 'UseAutomaticDeactivation',
+                    'type'    => 'CheckBox',
+                    'name'    => 'UseAutomaticDeactivation',
                     'caption' => 'Automatische Deaktivierung'
                 ],
                 [
-                    'type' => 'SelectTime',
-                    'name' => 'AutomaticDeactivationStartTime',
+                    'type'    => 'SelectTime',
+                    'name'    => 'AutomaticDeactivationStartTime',
                     'caption' => 'Startzeit'
                 ],
                 [
-                    'type' => 'SelectTime',
-                    'name' => 'AutomaticDeactivationEndTime',
+                    'type'    => 'SelectTime',
+                    'name'    => 'AutomaticDeactivationEndTime',
                     'caption' => 'Endzeit'
                 ]
             ]
@@ -766,33 +765,33 @@ trait ASIR_Config
         ##### Element: Visualisation
 
         $form['elements'][] = [
-            'type' => 'ExpansionPanel',
-            'name' => 'Panel8',
+            'type'    => 'ExpansionPanel',
+            'name'    => 'Panel8',
             'caption' => 'Visualisierung',
-            'items' => [
+            'items'   => [
                 [
-                    'type' => 'CheckBox',
-                    'name' => 'EnableActive',
+                    'type'    => 'CheckBox',
+                    'name'    => 'EnableActive',
                     'caption' => 'Aktiv'
                 ],
                 [
-                    'type' => 'CheckBox',
-                    'name' => 'EnableAlarmSiren',
+                    'type'    => 'CheckBox',
+                    'name'    => 'EnableAlarmSiren',
                     'caption' => 'Alarmsirene'
                 ],
                 [
-                    'type' => 'CheckBox',
-                    'name' => 'EnableAlarmLevel',
+                    'type'    => 'CheckBox',
+                    'name'    => 'EnableAlarmLevel',
                     'caption' => 'Alarmstufe'
                 ],
                 [
-                    'type' => 'CheckBox',
-                    'name' => 'EnableSignalingAmount',
+                    'type'    => 'CheckBox',
+                    'name'    => 'EnableSignalingAmount',
                     'caption' => 'Auslösungen'
                 ],
                 [
-                    'type' => 'CheckBox',
-                    'name' => 'EnableResetSignalingAmount',
+                    'type'    => 'CheckBox',
+                    'name'    => 'EnableResetSignalingAmount',
                     'caption' => 'Rückstellung'
                 ]
             ]
@@ -808,7 +807,7 @@ trait ASIR_Config
 
         $form['actions'][] =
             [
-                'type' => 'Label',
+                'type'    => 'Label',
                 'caption' => ' '
             ];
 
@@ -824,7 +823,7 @@ trait ASIR_Config
             }
             $registeredReferences[] = [
                 'ObjectID' => $reference,
-                'Name' => $name,
+                'Name'     => $name,
                 'rowColor' => $rowColor];
         }
 
@@ -851,94 +850,94 @@ trait ASIR_Config
                     $messageDescription = 'keine Bezeichnung';
             }
             $registeredMessages[] = [
-                'ObjectID' => $id,
-                'Name' => $name,
-                'MessageID' => $messageID,
+                'ObjectID'           => $id,
+                'Name'               => $name,
+                'MessageID'          => $messageID,
                 'MessageDescription' => $messageDescription,
-                'rowColor' => $rowColor];
+                'rowColor'           => $rowColor];
         }
 
         //Developer area
         $form['actions'][] = [
-            'type' => 'ExpansionPanel',
+            'type'    => 'ExpansionPanel',
             'caption' => 'Entwicklerbereich',
-            'items' => [
+            'items'   => [
                 [
-                    'type' => 'List',
-                    'name' => 'RegisteredReferences',
-                    'caption' => 'Registrierte Referenzen',
+                    'type'     => 'List',
+                    'name'     => 'RegisteredReferences',
+                    'caption'  => 'Registrierte Referenzen',
                     'rowCount' => 10,
-                    'sort' => [
-                        'column' => 'ObjectID',
+                    'sort'     => [
+                        'column'    => 'ObjectID',
                         'direction' => 'ascending'
                     ],
                     'columns' => [
                         [
                             'caption' => 'ID',
-                            'name' => 'ObjectID',
-                            'width' => '150px',
+                            'name'    => 'ObjectID',
+                            'width'   => '150px',
                             'onClick' => self::MODULE_PREFIX . '_ModifyButton($id, "RegisteredReferencesConfigurationButton", "ID " . $RegisteredReferences["ObjectID"] . " aufrufen", $RegisteredReferences["ObjectID"]);'
                         ],
                         [
                             'caption' => 'Name',
-                            'name' => 'Name',
-                            'width' => '300px',
+                            'name'    => 'Name',
+                            'width'   => '300px',
                             'onClick' => self::MODULE_PREFIX . '_ModifyButton($id, "RegisteredReferencesConfigurationButton", "ID " . $RegisteredReferences["ObjectID"] . " aufrufen", $RegisteredReferences["ObjectID"]);'
                         ]
                     ],
                     'values' => $registeredReferences
                 ],
                 [
-                    'type' => 'OpenObjectButton',
-                    'name' => 'RegisteredReferencesConfigurationButton',
-                    'caption' => 'Aufrufen',
-                    'visible' => false,
+                    'type'     => 'OpenObjectButton',
+                    'name'     => 'RegisteredReferencesConfigurationButton',
+                    'caption'  => 'Aufrufen',
+                    'visible'  => false,
                     'objectID' => 0
                 ],
                 [
-                    'type' => 'Label',
+                    'type'    => 'Label',
                     'caption' => ' '
                 ],
                 [
-                    'type' => 'List',
-                    'name' => 'RegisteredMessages',
-                    'caption' => 'Registrierte Nachrichten',
+                    'type'     => 'List',
+                    'name'     => 'RegisteredMessages',
+                    'caption'  => 'Registrierte Nachrichten',
                     'rowCount' => 10,
-                    'sort' => [
-                        'column' => 'ObjectID',
+                    'sort'     => [
+                        'column'    => 'ObjectID',
                         'direction' => 'ascending'
                     ],
                     'columns' => [
                         [
                             'caption' => 'ID',
-                            'name' => 'ObjectID',
-                            'width' => '150px',
+                            'name'    => 'ObjectID',
+                            'width'   => '150px',
                             'onClick' => self::MODULE_PREFIX . '_ModifyButton($id, "RegisteredMessagesConfigurationButton", "ID " . $RegisteredMessages["ObjectID"] . " aufrufen", $RegisteredMessages["ObjectID"]);'
                         ],
                         [
                             'caption' => 'Name',
-                            'name' => 'Name',
-                            'width' => '300px',
+                            'name'    => 'Name',
+                            'width'   => '300px',
                             'onClick' => self::MODULE_PREFIX . '_ModifyButton($id, "RegisteredMessagesConfigurationButton", "ID " . $RegisteredMessages["ObjectID"] . " aufrufen", $RegisteredMessages["ObjectID"]);'
                         ],
                         [
                             'caption' => 'Nachrichten ID',
-                            'name' => 'MessageID',
-                            'width' => '150px'
+                            'name'    => 'MessageID',
+                            'width'   => '150px'
                         ],
                         [
                             'caption' => 'Nachrichten Bezeichnung',
-                            'name' => 'MessageDescription',
-                            'width' => '250px'
+                            'name'    => 'MessageDescription',
+                            'width'   => '250px'
                         ]
                     ],
                     'values' => $registeredMessages
                 ],
                 [
-                    'type' => 'OpenObjectButton',
-                    'name' => 'RegisteredMessagesConfigurationButton',
-                    'caption' => 'Aufrufen',
-                    'visible' => false,
+                    'type'     => 'OpenObjectButton',
+                    'name'     => 'RegisteredMessagesConfigurationButton',
+                    'caption'  => 'Aufrufen',
+                    'visible'  => false,
                     'objectID' => 0
                 ]
             ]
@@ -947,15 +946,15 @@ trait ASIR_Config
         //Dummy info message
         $form['actions'][] =
             [
-                'type' => 'PopupAlert',
-                'name' => 'InfoMessage',
+                'type'    => 'PopupAlert',
+                'name'    => 'InfoMessage',
                 'visible' => false,
-                'popup' => [
+                'popup'   => [
                     'closeCaption' => 'OK',
-                    'items' => [
+                    'items'        => [
                         [
-                            'type' => 'Label',
-                            'name' => 'InfoMessageLabel',
+                            'type'    => 'Label',
+                            'name'    => 'InfoMessageLabel',
                             'caption' => '',
                             'visible' => true
                         ]
@@ -963,32 +962,31 @@ trait ASIR_Config
                 ]
             ];
 
-
         ########## Status
 
         $form['status'][] = [
-            'code' => 101,
-            'icon' => 'active',
+            'code'    => 101,
+            'icon'    => 'active',
             'caption' => $module['ModuleName'] . ' wird erstellt',
         ];
         $form['status'][] = [
-            'code' => 102,
-            'icon' => 'active',
+            'code'    => 102,
+            'icon'    => 'active',
             'caption' => $module['ModuleName'] . ' ist aktiv',
         ];
         $form['status'][] = [
-            'code' => 103,
-            'icon' => 'active',
+            'code'    => 103,
+            'icon'    => 'active',
             'caption' => $module['ModuleName'] . ' wird gelöscht',
         ];
         $form['status'][] = [
-            'code' => 104,
-            'icon' => 'inactive',
+            'code'    => 104,
+            'icon'    => 'inactive',
             'caption' => $module['ModuleName'] . ' ist inaktiv',
         ];
         $form['status'][] = [
-            'code' => 200,
-            'icon' => 'inactive',
+            'code'    => 200,
+            'icon'    => 'inactive',
             'caption' => 'Es ist Fehler aufgetreten, weitere Informationen unter Meldungen, im Log oder Debug!',
         ];
 

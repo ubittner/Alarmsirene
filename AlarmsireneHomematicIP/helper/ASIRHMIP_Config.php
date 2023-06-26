@@ -102,20 +102,20 @@ trait ASIRHMIP_Config
         //Configuration buttons
         $form['elements'][0] =
             [
-                'type' => 'RowLayout',
+                'type'  => 'RowLayout',
                 'items' => [
                     [
-                        'type' => 'Button',
+                        'type'    => 'Button',
                         'caption' => 'Konfiguration ausklappen',
                         'onClick' => self::MODULE_PREFIX . '_ExpandExpansionPanels($id, true);'
                     ],
                     [
-                        'type' => 'Button',
+                        'type'    => 'Button',
                         'caption' => 'Konfiguration einklappen',
                         'onClick' => self::MODULE_PREFIX . '_ExpandExpansionPanels($id, false);'
                     ],
                     [
-                        'type' => 'Button',
+                        'type'    => 'Button',
                         'caption' => 'Konfiguration neu laden',
                         'onClick' => self::MODULE_PREFIX . '_ReloadConfig($id);'
                     ]
@@ -126,7 +126,7 @@ trait ASIRHMIP_Config
         $module = IPS_GetModule(self::MODULE_GUID);
         $form['elements'][] = [
             'type'    => 'ExpansionPanel',
-            'name' => 'Panel1',
+            'name'    => 'Panel1',
             'caption' => 'Info',
             'items'   => [
                 [
@@ -149,11 +149,11 @@ trait ASIRHMIP_Config
                     'caption' => "Präfix:\t\t" . $module['Prefix']
                 ],
                 [
-                    'type' => 'Label',
+                    'type'    => 'Label',
                     'caption' => "Version:\t\t" . $library['Version'] . '-' . $library['Build'] . ', ' . date('d.m.Y', $library['Date'])
                 ],
                 [
-                    'type' => 'Label',
+                    'type'    => 'Label',
                     'caption' => "Entwickler:\t" . $library['Author']
                 ],
                 [
@@ -194,7 +194,7 @@ trait ASIRHMIP_Config
 
         $form['elements'][] = [
             'type'    => 'ExpansionPanel',
-            'name' => 'Panel2',
+            'name'    => 'Panel2',
             'caption' => 'Alarmsirene',
             'items'   => [
                 [
@@ -291,14 +291,14 @@ trait ASIRHMIP_Config
 
         $form['elements'][] = [
             'type'    => 'ExpansionPanel',
-            'name' => 'Panel3',
+            'name'    => 'Panel3',
             'caption' => 'Alarmstufen',
             'items'   => [
                 [
-                    'type' => 'Label',
+                    'type'    => 'Label',
                     'caption' => 'Voralarm',
-                    'bold' => true,
-                    'italic' => true
+                    'bold'    => true,
+                    'italic'  => true
                 ],
                 [
                     'type'    => 'CheckBox',
@@ -430,14 +430,14 @@ trait ASIRHMIP_Config
                     ]
                 ],
                 [
-                    'type' => 'Label',
+                    'type'    => 'Label',
                     'caption' => ' '
                 ],
                 [
-                    'type' => 'Label',
+                    'type'    => 'Label',
                     'caption' => 'Hauptalarm',
-                    'bold' => true,
-                    'italic' => true
+                    'bold'    => true,
+                    'italic'  => true
                 ],
                 [
                     'type'    => 'CheckBox',
@@ -576,14 +576,14 @@ trait ASIRHMIP_Config
                     ]
                 ],
                 [
-                    'type' => 'Label',
+                    'type'    => 'Label',
                     'caption' => ' '
                 ],
                 [
-                    'type' => 'Label',
+                    'type'    => 'Label',
                     'caption' => 'Nachalarm',
-                    'bold' => true,
-                    'italic' => true
+                    'bold'    => true,
+                    'italic'  => true
                 ],
                 [
                     'type'    => 'CheckBox',
@@ -638,14 +638,14 @@ trait ASIRHMIP_Config
                     ]
                 ],
                 [
-                    'type' => 'Label',
+                    'type'    => 'Label',
                     'caption' => ' '
                 ],
                 [
-                    'type' => 'Label',
+                    'type'    => 'Label',
                     'caption' => 'Panikalarm',
-                    'bold' => true,
-                    'italic' => true
+                    'bold'    => true,
+                    'italic'  => true
                 ],
                 [
                     'type'    => 'CheckBox',
@@ -834,13 +834,13 @@ trait ASIRHMIP_Config
 
         $form['elements'][] = [
             'type'    => 'ExpansionPanel',
-            'name' => 'Panel4',
+            'name'    => 'Panel4',
             'caption' => 'Auslöser',
             'items'   => [
                 [
                     'type'     => 'List',
                     'name'     => 'TriggerList',
-                    'caption' => 'Auslöser',
+                    'caption'  => 'Auslöser',
                     'rowCount' => 15,
                     'add'      => true,
                     'delete'   => true,
@@ -1213,7 +1213,7 @@ trait ASIRHMIP_Config
         }
         $form['elements'][] = [
             'type'    => 'ExpansionPanel',
-            'name' => 'Panel5',
+            'name'    => 'Panel5',
             'caption' => 'Ablaufsteuerung',
             'items'   => [
                 [
@@ -1253,7 +1253,7 @@ trait ASIRHMIP_Config
         }
         $form['elements'][] = [
             'type'    => 'ExpansionPanel',
-            'name' => 'Panel6',
+            'name'    => 'Panel6',
             'caption' => 'Alarmprotokoll',
             'items'   => [
                 [
@@ -1294,7 +1294,7 @@ trait ASIRHMIP_Config
 
         $form['elements'][] = [
             'type'    => 'ExpansionPanel',
-            'name' => 'Panel7',
+            'name'    => 'Panel7',
             'caption' => 'Deaktivierung',
             'items'   => [
                 [
@@ -1319,7 +1319,7 @@ trait ASIRHMIP_Config
 
         $form['elements'][] = [
             'type'    => 'ExpansionPanel',
-            'name' => 'Panel8',
+            'name'    => 'Panel8',
             'caption' => 'Visualisierung',
             'items'   => [
                 [
@@ -1360,7 +1360,7 @@ trait ASIRHMIP_Config
 
         $form['actions'][] =
             [
-                'type' => 'Label',
+                'type'    => 'Label',
                 'caption' => ' '
             ];
 
@@ -1376,7 +1376,7 @@ trait ASIRHMIP_Config
             }
             $registeredReferences[] = [
                 'ObjectID' => $reference,
-                'Name' => $name,
+                'Name'     => $name,
                 'rowColor' => $rowColor];
         }
 
@@ -1403,94 +1403,94 @@ trait ASIRHMIP_Config
                     $messageDescription = 'keine Bezeichnung';
             }
             $registeredMessages[] = [
-                'ObjectID' => $id,
-                'Name' => $name,
-                'MessageID' => $messageID,
+                'ObjectID'           => $id,
+                'Name'               => $name,
+                'MessageID'          => $messageID,
                 'MessageDescription' => $messageDescription,
-                'rowColor' => $rowColor];
+                'rowColor'           => $rowColor];
         }
 
         //Developer area
         $form['actions'][] = [
-            'type' => 'ExpansionPanel',
+            'type'    => 'ExpansionPanel',
             'caption' => 'Entwicklerbereich',
-            'items' => [
+            'items'   => [
                 [
-                    'type' => 'List',
-                    'name' => 'RegisteredReferences',
-                    'caption' => 'Registrierte Referenzen',
+                    'type'     => 'List',
+                    'name'     => 'RegisteredReferences',
+                    'caption'  => 'Registrierte Referenzen',
                     'rowCount' => 10,
-                    'sort' => [
-                        'column' => 'ObjectID',
+                    'sort'     => [
+                        'column'    => 'ObjectID',
                         'direction' => 'ascending'
                     ],
                     'columns' => [
                         [
                             'caption' => 'ID',
-                            'name' => 'ObjectID',
-                            'width' => '150px',
+                            'name'    => 'ObjectID',
+                            'width'   => '150px',
                             'onClick' => self::MODULE_PREFIX . '_ModifyButton($id, "RegisteredReferencesConfigurationButton", "ID " . $RegisteredReferences["ObjectID"] . " aufrufen", $RegisteredReferences["ObjectID"]);'
                         ],
                         [
                             'caption' => 'Name',
-                            'name' => 'Name',
-                            'width' => '300px',
+                            'name'    => 'Name',
+                            'width'   => '300px',
                             'onClick' => self::MODULE_PREFIX . '_ModifyButton($id, "RegisteredReferencesConfigurationButton", "ID " . $RegisteredReferences["ObjectID"] . " aufrufen", $RegisteredReferences["ObjectID"]);'
                         ]
                     ],
                     'values' => $registeredReferences
                 ],
                 [
-                    'type' => 'OpenObjectButton',
-                    'name' => 'RegisteredReferencesConfigurationButton',
-                    'caption' => 'Aufrufen',
-                    'visible' => false,
+                    'type'     => 'OpenObjectButton',
+                    'name'     => 'RegisteredReferencesConfigurationButton',
+                    'caption'  => 'Aufrufen',
+                    'visible'  => false,
                     'objectID' => 0
                 ],
                 [
-                    'type' => 'Label',
+                    'type'    => 'Label',
                     'caption' => ' '
                 ],
                 [
-                    'type' => 'List',
-                    'name' => 'RegisteredMessages',
-                    'caption' => 'Registrierte Nachrichten',
+                    'type'     => 'List',
+                    'name'     => 'RegisteredMessages',
+                    'caption'  => 'Registrierte Nachrichten',
                     'rowCount' => 10,
-                    'sort' => [
-                        'column' => 'ObjectID',
+                    'sort'     => [
+                        'column'    => 'ObjectID',
                         'direction' => 'ascending'
                     ],
                     'columns' => [
                         [
                             'caption' => 'ID',
-                            'name' => 'ObjectID',
-                            'width' => '150px',
+                            'name'    => 'ObjectID',
+                            'width'   => '150px',
                             'onClick' => self::MODULE_PREFIX . '_ModifyButton($id, "RegisteredMessagesConfigurationButton", "ID " . $RegisteredMessages["ObjectID"] . " aufrufen", $RegisteredMessages["ObjectID"]);'
                         ],
                         [
                             'caption' => 'Name',
-                            'name' => 'Name',
-                            'width' => '300px',
+                            'name'    => 'Name',
+                            'width'   => '300px',
                             'onClick' => self::MODULE_PREFIX . '_ModifyButton($id, "RegisteredMessagesConfigurationButton", "ID " . $RegisteredMessages["ObjectID"] . " aufrufen", $RegisteredMessages["ObjectID"]);'
                         ],
                         [
                             'caption' => 'Nachrichten ID',
-                            'name' => 'MessageID',
-                            'width' => '150px'
+                            'name'    => 'MessageID',
+                            'width'   => '150px'
                         ],
                         [
                             'caption' => 'Nachrichten Bezeichnung',
-                            'name' => 'MessageDescription',
-                            'width' => '250px'
+                            'name'    => 'MessageDescription',
+                            'width'   => '250px'
                         ]
                     ],
                     'values' => $registeredMessages
                 ],
                 [
-                    'type' => 'OpenObjectButton',
-                    'name' => 'RegisteredMessagesConfigurationButton',
-                    'caption' => 'Aufrufen',
-                    'visible' => false,
+                    'type'     => 'OpenObjectButton',
+                    'name'     => 'RegisteredMessagesConfigurationButton',
+                    'caption'  => 'Aufrufen',
+                    'visible'  => false,
                     'objectID' => 0
                 ]
             ]
@@ -1499,15 +1499,15 @@ trait ASIRHMIP_Config
         //Dummy info message
         $form['actions'][] =
             [
-                'type' => 'PopupAlert',
-                'name' => 'InfoMessage',
+                'type'    => 'PopupAlert',
+                'name'    => 'InfoMessage',
                 'visible' => false,
-                'popup' => [
+                'popup'   => [
                     'closeCaption' => 'OK',
-                    'items' => [
+                    'items'        => [
                         [
-                            'type' => 'Label',
-                            'name' => 'InfoMessageLabel',
+                            'type'    => 'Label',
+                            'name'    => 'InfoMessageLabel',
                             'caption' => '',
                             'visible' => true
                         ]
