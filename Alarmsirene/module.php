@@ -1,15 +1,15 @@
 <?php
 
 /**
- * @project       Alarmsirene/Alarmsirene
+ * @project       Alarmsirene/Alarmsirene/
  * @file          module.php
  * @author        Ulrich Bittner
- * @copyright     2022 Ulrich Bittner
+ * @copyright     2023 Ulrich Bittner
  * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
  */
 
-/** @noinspection PhpRedundantMethodOverrideInspection */
 /** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection SpellCheckingInspection */
 /** @noinspection DuplicatedCode */
 /** @noinspection PhpUnused */
 
@@ -21,7 +21,7 @@ class Alarmsirene extends IPSModule
 {
     //Helper
     use ASIR_AlarmProtocol;
-    use ASIR_Config;
+    use ASIR_ConfigurationForm;
     use ASIR_Control;
     use ASIR_Signaling;
     use ASIR_TriggerCondition;

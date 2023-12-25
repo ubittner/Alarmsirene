@@ -1,14 +1,14 @@
 <?php
 
 /**
- * @project       Alarmsirene/AlarmsireneHomematicIP
+ * @project       Alarmsirene/AlarmsireneHomematicIP/helper/
  * @file          ASIRHMIP_Signaling.php
  * @author        Ulrich Bittner
- * @copyright     2022 Ulrich Bittner
+ * @copyright     2023 Ulrich Bittner
  * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
  */
 
-/** @noinspection PhpUndefinedFunctionInspection */
+/** @noinspection SpellCheckingInspection */
 /** @noinspection DuplicatedCode */
 
 declare(strict_types=1);
@@ -382,6 +382,7 @@ trait ASIRHMIP_Signaling
      * Resets the signalling amount
      *
      * @return void
+     * @throws Exception
      */
     public function ResetSignallingAmount(): void
     {

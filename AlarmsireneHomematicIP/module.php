@@ -1,14 +1,15 @@
 <?php
 
 /**
- * @project       Alarmsirene/AlarmsireneHomematicIP
+ * @project       Alarmsirene/AlarmsireneHomematicIP/
  * @file          module.php
  * @author        Ulrich Bittner
- * @copyright     2022 Ulrich Bittner
+ * @copyright     2023 Ulrich Bittner
  * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
  */
 
 /** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection SpellCheckingInspection */
 /** @noinspection DuplicatedCode */
 /** @noinspection PhpUnused */
 
@@ -20,7 +21,7 @@ class AlarmsireneHomematicIP extends IPSModule
 {
     //Helper
     use ASIRHMIP_AlarmProtocol;
-    use ASIRHMIP_Config;
+    use ASIRHMIP_ConfigugrationForm;
     use ASIRHMIP_Control;
     use ASIRHMIP_Signaling;
     use ASIRHMIP_TriggerCondition;

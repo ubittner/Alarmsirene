@@ -1,15 +1,16 @@
 <?php
 
 /**
- * @project       Alarmsirene/AlarmsireneHomematic
+ * @project       Alarmsirene/AlarmsireneHomematic/helper/
  * @file          ASIRHM_AlarmProtocol.php
  * @author        Ulrich Bittner
- * @copyright     2022 Ulrich Bittner
+ * @copyright     2023 Ulrich Bittner
  * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
  */
 
 /** @noinspection PhpUnusedPrivateMethodInspection */
 /** @noinspection PhpUndefinedFunctionInspection */
+/** @noinspection SpellCheckingInspection */
 
 declare(strict_types=1);
 
